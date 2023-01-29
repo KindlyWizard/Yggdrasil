@@ -136,21 +136,28 @@ ComputeStats <- function(CharStats) {
 
 
 DamageBonus <- function() {
-  ReturnComputedStatValue("StrengthBonus")
-}
-
-DiceRoll <- function() {
 ReturnComputedStatValue("StrengthBonus")
 }
 
+DiceRoll <- function(DieSize = 6L, DiceNumber = 1L, Bonus = 0L) {
+if (ValidateDieRoll(DieSize, DiceNumber, Bonus) == TRUE) {
+  for (x in 1:DiceNumber){
+    TotalRolled <- TotalRolled + (sample(1:DieSize, 1))
+    }
+   TotalRolled + as.numeric(Bonus)
+   } else {
+    print("Invalid Entry")
+  }
+}
+
 DisplayAttackLog <- function() {
-  barplot(table(unlist(AttackLog[1:length(AttackLog)])))
+  barplot(table(unlist(AttackLog[seq_along(AttackLog)])))
 }
 
 DisplayChar <- function() {
   print(CharFullName)
 OutputSpeciesAndClass()
- for (x in 1:length(StatList)) {
+ for (x in seq_along(StatList)) {
   print(paste(StatList[x], CharStats[x]))
   }
   print("")
@@ -159,14 +166,14 @@ OutputSpeciesAndClass()
 }
 
 DisplayComputedStats <- function() {
-  for (x in 1:length(ComputedStatList)) {
+  for (x in seq_along(ComputedStatList)) {
     ComputeStats()
     print(paste(ComputedStatList[x], ComputedStatValue[x], sep = " "))
   }
 }
 
 DisplayStats <- function() {
-  for (x in 1:length(StatList)) {
+  for (x in seq_along(StatList)) {
     print(paste(StatList[x], CharStats[x]))
     }
     }
@@ -200,13 +207,13 @@ GenerateSkills <- function(CharStats) {
 
 GenerateStats <- function(Game, Method = "3d6") {
   if (Method == "3d6") {
-    for (y in 1:length(StatList)) {
+    for (y in seq_along(StatList)) {
       CharStats[y] <<- DiceRoll(6, 3)
        print(paste(StatList[y], CharStats[y]))
        }
        } else {
   if (Method == "4d6droplow") {
-    for (y in 1:length(StatList)){
+    for (y in seq_along(StatList)){
         for (x in 1:4){
           TempDice[x] <- DiceRoll(6, 1)
           }
@@ -240,13 +247,13 @@ PickEndTitle <- function(Genre = "Fantasy") {
 
 PickFantasyMainTitle <- function() {
  if (DiceRoll(10) == 1) {
-  return(FantasyMainTitles[(sample(1:length(FantasyMainTitles), 1))])
+  return(FantasyMainTitles[(sample(seq_along(FantasyMainTitles), 1))])
  }
 }
 
 PickFantasyNickName <- function() {
   if (DiceRoll(10) == 1) {
-    trimws(paste("'", (FantasyNickNames[(sample(1:length(FantasyNickNames), 1))]), "'", sep = ""))
+    trimws(paste("'", (FantasyNickNames[(sample(seq_along(FantasyNickNames), 1))]), "'", sep = ""))
   }
 }
 
@@ -384,3 +391,8 @@ LastNames <- list("Young", "of the House of Elrond", "Borogrove", "Symmetry", "B
 CharStats <- list(0L, 0L, 0L, 0L, 0L, 0L)
 ColorList <- list("", "", "", "", "", "")
 TargetDummyAC <- 10L
+TempDice <- 0L
+TotalRolled <- 0L
+ComputedStatValue <- 0L
+CharClass <- "Monk"
+AttackLog <- list(0, 0)
