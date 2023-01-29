@@ -1,3 +1,5 @@
+#Test
+
 AddSpeciesBonus<-function(Stat, Bonus=0L)
  {for(x in 1:length(StatList))
   {if(Stat==(as.character(StatList[x])))
