@@ -53,8 +53,8 @@ AssignSpecies <- function(Game = "DandD") {
 
 Attack <- function(Weapon = "Stick", Swings = 1L) {
   for (x in 1:Swings) {
-  AttackLog[x] <<- if (DiceRoll(20, 1, SwingBonus()) >= TargetDummyAC) {
-    as.integer(DiceRoll(4, 1, DamageBonus()))
+  AttackLog[x] <<- if (RollDice(20, 1, SwingBonus()) >= TargetDummyAC) {
+    as.integer(RollDice(4, 1, DamageBonus()))
   } else {
    AttackLog[x] <- 0L
   }
@@ -81,10 +81,9 @@ CharGen <- function(Genre = "Fantasy", Game = "DandD", Method = "4d6droplow") {
   GenerateName()
   AssignSpecies()
   GenerateStats(Game, Method)
+  AssignClass(RecommendClass())
   ComputeStats(CharStats)
   DisplayChar()
-  GraphStats()
-  RecommendClass(CharStats)
   Attack(Swings = 100)
   DisplayAttackLog()
   SaveChar()
@@ -139,7 +138,7 @@ DamageBonus <- function() {
 ReturnComputedStatValue("StrengthBonus")
 }
 
-DiceRoll <- function(DieSize = 6L, DiceNumber = 1L, Bonus = 0L) {
+RollDice <- function(DieSize = 6L, DiceNumber = 1L, Bonus = 0L) {
 if (ValidateDieRoll(DieSize, DiceNumber, Bonus) == TRUE) {
   for (x in 1:DiceNumber){
     TotalRolled <- TotalRolled + (sample(1:DieSize, 1))
@@ -157,9 +156,7 @@ DisplayAttackLog <- function() {
 DisplayChar <- function() {
   print(CharFullName)
 OutputSpeciesAndClass()
- for (x in seq_along(StatList)) {
-  print(paste(StatList[x], CharStats[x]))
-  }
+ DisplayStats()
   print("")
   DisplayComputedStats()
   GraphStats()
@@ -182,13 +179,21 @@ FindMaxStat <- function() {
 max(unlist(CharStats))
 }
 
+FindNthBestStat <- function() {
+maxN <- function(CharStats, N = 5) {
+  len <- length(CharStats)
+  if (N > len) {
+    warning("N greater than length(x).  Setting N=length(x)")
+    N <- length(CharStats)
+  }
+  sort(CharStats, partial = len - N + 1)[len - N + 1]
+}
+maxN(1:10)
+}
+
 FindMinStat <- function() {
 min(unlist(CharStats))
 }
-
-#GenerateClassRecommendationTable <- function(StatList) {
-#  ClassRecommendationTable <- matrix(StatSomething(), ncol = (length(StatList + 1), nrow = factorial(length(StatList))))
-#}
 
 GenerateName <- function(Genre = "Fantasy") {
 CharFullName <<- if (Genre == "Fantasy") {
@@ -200,7 +205,7 @@ CharFullName <<- if (Genre == "Fantasy") {
 GenerateSkillMatrix <- function(SkillList) {
 }
 
-SkillMatrix <<- matrix(nrow = length(StatList), ncol = 2)
+SkillMatrix <<- matrix(nrow = length(SkillList), ncol = 2)
 
 GenerateSkills <- function(CharStats) {
 }
@@ -208,37 +213,42 @@ GenerateSkills <- function(CharStats) {
 GenerateStats <- function(Game, Method = "3d6") {
   if (Method == "3d6") {
     for (y in seq_along(StatList)) {
-      CharStats[y] <<- DiceRoll(6, 3)
+      CharStats[y] <<- RollDice(6, 3)
        print(paste(StatList[y], CharStats[y]))
        }
+       names(CharStats) <<- StatList
        } else {
   if (Method == "4d6droplow") {
     for (y in seq_along(StatList)){
         for (x in 1:4){
-          TempDice[x] <- DiceRoll(6, 1)
+          TempDice[x] <<- RollDice(6, 1)
           }
           TempDice[which.min(TempDice)] <- 0
           CharStats[y] <<- Reduce("+", TempDice)
         }
         }
         }
+        names(CharStats) <<- StatList
 }
 
 GraphStats <- function() {
-  MaxStats <- max(unlist(CharStats))
   ColorStats()
    barplot(as.numeric(CharStats), names.arg = substr(StatList, 1, 3), col = unlist(ColorList))
 }
+
 LoadChar <- function(CharFile) {
   load(CharFile)
   DisplayChar()
-  }
+}
+
 OutputSpecies <- function() {
   print(trimws(CharSpecies))
   }
+
 OutputSpeciesAndClass <- function() {
  print(paste(CharSpecies, CharClass))
 }
+
 PickEndTitle <- function(Genre = "Fantasy") {
   if (Genre == "Fantasy") {
   paste(PickFantasyEndTitle())
@@ -246,14 +256,20 @@ PickEndTitle <- function(Genre = "Fantasy") {
 }
 
 PickFantasyMainTitle <- function() {
- if (DiceRoll(10) == 1) {
+ if (RollDice(10) == 1) {
   return(FantasyMainTitles[(sample(seq_along(FantasyMainTitles), 1))])
  }
 }
 
 PickFantasyNickName <- function() {
-  if (DiceRoll(10) == 1) {
+  if (RollDice(10) == 1) {
     trimws(paste("'", (FantasyNickNames[(sample(seq_along(FantasyNickNames), 1))]), "'", sep = ""))
+  }
+}
+
+PickFantasyEndTitle <- function() {
+  if(RollDice(10) == 1) {
+    trimws(paste("'", (FantasyNickNames[(sample(seq_along(FantasyEndTitles), 1))]), "'", sep = ""))
   }
 }
 
@@ -277,36 +293,68 @@ PickNickName <- function(Genre = "Fantasy") {
   }
 }
 
-RecommendClass <- function(CharStats) {
-  print(paste("Gwen recommends:", if (StatList[which.max(CharStats)] == "Strength") {
-    "Fighter or Barbarian"
-    } else if (StatList[which.max(CharStats)] == "Dexterity") {
-      "Thief or Ranger"
-      } else if
+RecommendClass <- function() {
+  if (StatList[which.max(CharStats)] == "Strength") {
+    if (CharStats$Constitution >= CharStats$Wisdom) {
+    "Fighter"
+    } else {
+       "Barbarian"
+    }
+  } else
+   if (StatList[which.max(CharStats)] == "Dexterity") {
+          if (CharStats$Strength >= CharStats$Intelligence) {
+    "Ranger"
+    } else {
+       "Rogue"
+    }
+     } else if
        (StatList[which.max(CharStats)] == "Constitution") {
-        "Fighter or Cleric"
+            if (CharStats$Strength >= CharStats$Wisdom) {
+    "Fighter"
+    } else {
+       "Cleric"
+    }
         } else if
          (StatList[which.max(CharStats)] == "Intelligence") {
-        "Wizard or Thief"
+            if (CharStats$Constitution >= CharStats$Wisdom) {
+    "Wizard"
+    } else {
+       "Rogue"
+    }
         } else if
         (StatList[which.max(CharStats)] == "Wisdom") {
-        "Cleric or Druid"
+            if (CharStats$Dexterity >= CharStats$Constitution) {
+        if (CharStats$Wisdom >= CharStats$Strength) {
+    "Druid"
+    } else {
+       "Monk"
+    }
+    } else {
+       "Cleric"
+    }
         } else if
         (StatList[which.max(CharStats)] == "Charisma") {
-        "Sorceror or Bard"
+            if (CharStats$Strength >= CharStats$Dexterity) {
+    "Paladin"
+    } else {
+           if (CharStats$Intelligence >= CharStats$Constitution) {
+    "Bard"
+    } else {
+       "Sorceror"
+    }
+    }
         } else {
         "Beats TF out of me!"
         }
-      )
-    )
-  }
+    }
+
 
 RemoveStatsSpecies <- function(CharSpecies = "Human") {
 if (CharSpecies == "Dwarf") {
   AddSpeciesBonus("Constitution", -2)
   AddSpeciesBonus("Wisdom", -2)
   AddSpeciesBonus("Charisma", 2)
-  }
+}
   if (CharSpecies == "Elf") {
    AddSpeciesBonus("Dexterity", -2)
    AddSpeciesBonus("Intelligence", -2)
@@ -332,18 +380,27 @@ if (CharSpecies == "Dwarf") {
   AddSpeciesBonus(StatList[which.max(CharStats)], -2)
    }
   }
+
 ReturnComputedStatIndex <- function(ComputedStat) {
    which(ComputedStatList == ComputedStat)
 }
+
 ReturnComputedStatValue <- function(ComputedStat) {
   ComputedStatValue[which(ComputedStatList == ComputedStat)]
 }
+
+ReturnComputedStatDescription <- function(ComputedStat) {
+return(ComputedStatList[which(ComputedStatList == ComputedStat)])
+}
+
 ReturnStatDescription <- function(StatIndex) {
   return(StatList[StatIndex])
 }
+
 ReturnStatIndex <- function(StatToIndex) {
   which(StatToIndex == ComputedStatList)
 }
+
 ReturnStatValue <- function(StatIndex) {
   return(CharStats[StatIndex])
 }
@@ -396,3 +453,4 @@ TotalRolled <- 0L
 ComputedStatValue <- 0L
 CharClass <- "Monk"
 AttackLog <- list(0, 0)
+CharacterData <- list("CharFullName", "CharStats", "ComputedStatValue")
