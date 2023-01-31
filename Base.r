@@ -6,6 +6,76 @@ AddSpeciesBonus <- function(Stat, Bonus = 0L) {
   }
  }
 
+AddSaves <<-function(ClassAdded) {
+  if(ClassAdded == "Barbarian") {
+    ComputedStatValue$ReflexSave <<- (ComputedStatValue$ReflexSave + 2)
+    } else
+  if(ClassAdded == "Bard") {
+    ComputedStatValue$ReflexSave <<- (ComputedStatValue$ReflexSave + 2)
+    ComputedStatValue$WillSave <<- (ComputedStatValue$WillSave +2)
+  } else
+  if(ClassAdded == "Cleric") {
+    ComputedStatValue$FortitudeSave <<- (ComputedStatValue$FortitudeSave + 2)
+    ComputedStatValue$WillSave <<- (ComputedStatValue$WillSave +2)
+    } else
+  if(ClassAdded == "Druid") {
+    ComputedStatValue$FortitudeSave <<- (ComputedStatValue$FortitudeSave + 2)
+    ComputedStatValue$WillSave <<- (ComputedStatValue$WillSave +2)
+    } else
+  if(ClassAdded == "Fighter") {
+    ComputedStatValue$FortitudeSave <<- (ComputedStatValue$FortitudeSave + 2)
+    } else
+  if(ClassAdded == "Monk") {
+    ComputedStatValue$ReflexSave <<- (ComputedStatValue$ReflexSave + 2)
+    ComputedStatValue$FortitudeSave <<- (ComputedStatValue$FortitudeSave + 2)
+    ComputedStatValue$WillSave <<- (ComputedStatValue$WillSave +2)
+    } else
+  if(ClassAdded == "Paladin") {
+    ComputedStatValue$FortitudeSave <<- (ComputedStatValue$FortitudeSave + 2)
+    ComputedStatValue$WillSave <<- (ComputedStatValue$WillSave +2)
+    } else
+  if(ClassAdded == "Ranger") {
+    ComputedStatValue$FortitudeSave <<- (ComputedStatValue$FortitudeSave + 2)
+    ComputedStatValue$ReflexSave <<- (ComputedStatValue$ReflexSave + 2)
+    } else
+  if(ClassAdded == "Rogue") {
+    ComputedStatValue$ReflexSave <<- (ComputedStatValue$ReflexSave + 2)
+    } else
+  if(ClassAdded == "Sorceror") {
+    ComputedStatValue$WillSave <<- (ComputedStatValue$WillSave + 2)
+    } else
+  if(ClassAdded == "Wizard") {
+    ComputedStatValue$WillSave <<- (ComputedStatValue$WillSave + 2)
+    }
+}
+
+AddSkillPoints <<-function(ClassAdded) {
+
+}
+
+AddClassHitDie <<- function(ClassAdded) {
+if (ClassAdded == "Barbarian") {
+  return(12)
+  }
+else if (ClassAdded %in% (list("Fighter", "Paladin", "Ranger"))) {
+   return(10)
+}
+else if (ClassAdded %in% (list("Druid", "Cleric", "Bard", "Monk", "Rogue"))) {
+  return(8)
+  }
+else if (ClassAdded %in% (list("Sorceror, Wizard"))) {
+  return(6)
+  }
+}
+
+ClassHitDice<-list(c(12L, 8L, 8L, 8L, 10L, 8L, 10L, 10L, 8L, 6L, 6L))
+names(ClassHitDice) <- list(ClassList)
+
+AddHitDie <<- function(ClassAdded) {
+if(CharacterLevel == 1) {HitPoints <<- AddClassHitDie(ClassAdded) + ComputedStatValue$ConstitutionBonus}
+else if(CharacterLevel > 1) {Hitpoints <<- Hitpoints + RollDice(DieSize = AddClassHitDie(ClassAdded), Bonus = ComputedStatValue$ConstitutionBonus)}
+}
+
 AdjustStatsSpecies <- function(CharSpecies = "Human") {
  if (CharSpecies == "Dwarf") {
    AddSpeciesBonus("Constitution", 2)
@@ -41,6 +111,9 @@ AdjustStatsSpecies <- function(CharSpecies = "Human") {
 AssignClass <- function(ClassPicked) {
   if (ClassPicked %in% ClassList) {
     CharClass <<- ClassPicked
+    CharacterLevel=1L
+    AddClassHitDie(CharClass)
+    AddSaves(ClassPicked)
   }
 }
 
@@ -87,6 +160,7 @@ CharGen <- function(Genre = "Fantasy", Game = "DandD", Method = "4d6droplow") {
   GenerateStats(Game, Method)
   AssignClass(RecommendClass())
   ComputeStats(CharStats)
+  AddHitDie(CharClass)
   DisplayChar()
   Attack(Swings = 100)
   #DisplayAttackLog()
@@ -157,7 +231,7 @@ DisplayChar <- function() {
   print(CharFullName)
 OutputSpeciesAndClass()
  DisplayStats()
-  print("")
+  print(paste("HP:", HitPoints, sep = " "))
   DisplayComputedStats()
   #GraphStats()
 }
@@ -454,3 +528,5 @@ CharClass <- "Monk"
 AttackLog <- list(0, 0)
 CharacterData <- list("CharFullName", "CharStats", "ComputedStatValue")
 ComputedStatValue <- list(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+HitPoints<-0L
+CharacterLevel=1L
