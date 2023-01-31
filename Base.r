@@ -61,20 +61,24 @@ Attack <- function(Weapon = "Stick", Swings = 1L) {
  }
 }
 
-CalculateFortitudeSave <- function(ComputedStat) {
-  ComputedStatValue[ComputedStat] <<- ComputedStatValue["ConstitutionBonus"]
+CalculateBaseAttackBonus <- function() {
+  ComputedStatValue$BaseAttackBonus <<- ComputedStatValue["StrengthBonus"]
  }
 
-CalculateInitiative <- function(ComputedStat) {
-  ComputedStatValue[ComputedStat] <<- ComputedStatValue["ConstitutionBonus"]
+CalculateFortitudeSave <- function() {
+  ComputedStatValue$FortitudeSave <<- ComputedStatValue$ConstitutionBonus
  }
 
-CalculateReflexSave <- function(ComputedStat) {
-  ComputedStatValue[ComputedStat] <<- ComputedStatValue["DexterityBonus"]
+CalculateInitiative <- function() {
+  ComputedStatValue$Initiative <<- ComputedStatValue$DexerityBonus
+ }
+
+CalculateReflexSave <- function() {
+  ComputedStatValue$ReflexSave <<- ComputedStatValue$DexterityBonus
 }
 
-CalculateWillSave <- function(ComputedStat) {
- ComputedStatValue[ComputedStat] <<- ComputedStatValue["WisdomBonus"]
+CalculateWillSave <- function() {
+ ComputedStatValue$WillSave <<- ComputedStatValue$WisdomBonus
  }
 
 CharGen <- function(Genre = "Fantasy", Game = "DandD", Method = "4d6droplow") {
@@ -85,7 +89,7 @@ CharGen <- function(Genre = "Fantasy", Game = "DandD", Method = "4d6droplow") {
   ComputeStats(CharStats)
   DisplayChar()
   Attack(Swings = 100)
-  DisplayAttackLog()
+  #DisplayAttackLog()
   SaveChar()
  }
 
@@ -108,35 +112,31 @@ ComputeBaseStatBonus <- function(CharStat) {
 }
 
 ComputeOtherStats <- function(ComputedStat) {
-  if (ComputedStat == "FortitudeSave")
-   CalculateFortitudeSave(ComputedStat)
-    else if (ComputedStat == "ReflexSave") CalculateReflexSave(ComputedStat)
-     else if (ComputedStat == "WillSave") CalculateWillSave(ComputedStat)
-      else if (ComputedStat == "Initiative") CalculateInitiative(ComputedStat)
+  if (ComputedStat == "FortitudeSave") CalculateFortitudeSave()
+    else if (ComputedStat == "ReflexSave") CalculateReflexSave()
+     else if (ComputedStat == "WillSave") CalculateWillSave()
+      else if (ComputedStat == "Initiative") CalculateInitiative()
+      else if (ComputedStat == "BaseAttackBonus") CalculateBaseAttackBonus()
 }
 
 ComputeStat <- function(ComputedStat) {
   if (ComputedStat %in% BaseComputedStatList) {
-    ComputedStatValue[ComputedStat] <<- ComputeBaseStatBonus(ComputedStat)
-    } else
-    if (ComputedStat == "FortitudeSave") {
-    CalculateFortitudeSave(ComputedStat)
-    } else
-    if (ComputedStat == "ReflexSave") {
-    CalculateReflexSave(ComputedStat)
+    ComputedStatValue$ComputedStat <<- ComputeBaseStatBonus(ComputedStat)
     } else {
         ComputeOtherStats(ComputedStat)
       }
 }
 
 ComputeStats <- function(CharStats) {
-  for (x in seq_along(ComputedStatList)) ComputeStat(unlist(ComputedStatList[x]))
+  #for (x in seq_along(ComputedStatList)) (ComputedStatValue[x] <<- 0)
+  names(ComputedStatValue) <<-unlist (ComputedStatList)
+  for (x in seq_along(ComputedStatList)) ComputedStatValue[x] <<- ComputeStat(unlist(ComputedStatList[x]))
 }
-
 
 DamageBonus <- function() {
 ReturnComputedStatValue("StrengthBonus")
 }
+
 
 RollDice <- function(DieSize = 6L, DiceNumber = 1L, Bonus = 0L) {
 if (ValidateDieRoll(DieSize, DiceNumber, Bonus) == TRUE) {
@@ -159,12 +159,11 @@ OutputSpeciesAndClass()
  DisplayStats()
   print("")
   DisplayComputedStats()
-  GraphStats()
+  #GraphStats()
 }
 
 DisplayComputedStats <- function() {
   for (x in seq_along(ComputedStatList)) {
-    ComputeStats()
     print(paste(ComputedStatList[x], ComputedStatValue[x], sep = " "))
   }
 }
@@ -202,10 +201,10 @@ CharFullName <<- if (Genre == "Fantasy") {
   return(CharFullName)
 }
 
-GenerateSkillMatrix <- function(SkillList) {
-}
+#GenerateSkillMatrix <- function(SkillList) {
+#}
 
-SkillMatrix <<- matrix(nrow = length(SkillList), ncol = 2)
+#SkillMatrix <<- matrix(nrow = length(SkillList), ncol = 2)
 
 GenerateSkills <- function(CharStats) {
 }
@@ -221,7 +220,7 @@ GenerateStats <- function(Game, Method = "3d6") {
   if (Method == "4d6droplow") {
     for (y in seq_along(StatList)){
         for (x in 1:4){
-          TempDice[x] <<- RollDice(6, 1)
+          TempDice[x] <- RollDice(6, 1)
           }
           TempDice[which.min(TempDice)] <- 0
           CharStats[y] <<- Reduce("+", TempDice)
@@ -454,3 +453,4 @@ ComputedStatValue <- 0L
 CharClass <- "Monk"
 AttackLog <- list(0, 0)
 CharacterData <- list("CharFullName", "CharStats", "ComputedStatValue")
+ComputedStatValue <- list(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
