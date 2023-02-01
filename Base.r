@@ -6,21 +6,26 @@ AddSpeciesBonus <- function(Stat, Bonus = 0L) {
   }
  }
 
+ AddBaseAttackBonus<<-function(ClassAdded) {
+  if(ClassAdded %in% list("Barbarian", "Fighter", "Paladin", "Ranger"))
+  ComputedStatValue$BaseAttackBonus <<- ComputedStatValue$BaseAttackBonus + 1
+ }
+
 AddSaves <<-function(ClassAdded) {
   if(ClassAdded == "Barbarian") {
     ComputedStatValue$ReflexSave <<- (ComputedStatValue$ReflexSave + 2)
     } else
   if(ClassAdded == "Bard") {
     ComputedStatValue$ReflexSave <<- (ComputedStatValue$ReflexSave + 2)
-    ComputedStatValue$WillSave <<- (ComputedStatValue$WillSave +2)
+    ComputedStatValue$WillSave <<- (ComputedStatValue$WillSave + 2)
   } else
   if(ClassAdded == "Cleric") {
     ComputedStatValue$FortitudeSave <<- (ComputedStatValue$FortitudeSave + 2)
-    ComputedStatValue$WillSave <<- (ComputedStatValue$WillSave +2)
+    ComputedStatValue$WillSave <<- (ComputedStatValue$WillSave + 2)
     } else
   if(ClassAdded == "Druid") {
     ComputedStatValue$FortitudeSave <<- (ComputedStatValue$FortitudeSave + 2)
-    ComputedStatValue$WillSave <<- (ComputedStatValue$WillSave +2)
+    ComputedStatValue$WillSave <<- (ComputedStatValue$WillSave + 2)
     } else
   if(ClassAdded == "Fighter") {
     ComputedStatValue$FortitudeSave <<- (ComputedStatValue$FortitudeSave + 2)
@@ -28,11 +33,11 @@ AddSaves <<-function(ClassAdded) {
   if(ClassAdded == "Monk") {
     ComputedStatValue$ReflexSave <<- (ComputedStatValue$ReflexSave + 2)
     ComputedStatValue$FortitudeSave <<- (ComputedStatValue$FortitudeSave + 2)
-    ComputedStatValue$WillSave <<- (ComputedStatValue$WillSave +2)
+    ComputedStatValue$WillSave <<- (ComputedStatValue$WillSave + 2)
     } else
   if(ClassAdded == "Paladin") {
     ComputedStatValue$FortitudeSave <<- (ComputedStatValue$FortitudeSave + 2)
-    ComputedStatValue$WillSave <<- (ComputedStatValue$WillSave +2)
+    ComputedStatValue$WillSave <<- (ComputedStatValue$WillSave + 2)
     } else
   if(ClassAdded == "Ranger") {
     ComputedStatValue$FortitudeSave <<- (ComputedStatValue$FortitudeSave + 2)
@@ -47,10 +52,11 @@ AddSaves <<-function(ClassAdded) {
   if(ClassAdded == "Wizard") {
     ComputedStatValue$WillSave <<- (ComputedStatValue$WillSave + 2)
     }
+    return(ComputedStatValue)
 }
 
 AddSkillPoints <<-function(ClassAdded) {
-
+ UnusedSkillPoints <<- 0L
 }
 
 AddClassHitDie <<- function(ClassAdded) {
@@ -111,9 +117,10 @@ AdjustStatsSpecies <- function(CharSpecies = "Human") {
 AssignClass <- function(ClassPicked) {
   if (ClassPicked %in% ClassList) {
     CharClass <<- ClassPicked
-    CharacterLevel=1L
-    AddClassHitDie(CharClass)
-    AddSaves(ClassPicked)
+    CharacterLevel <<- 1L
+    AddSaves(CharClass)
+    AddHitDie(CharClass)
+    AddBaseAttackBonus(CharClass)
   }
 }
 
@@ -135,7 +142,7 @@ Attack <- function(Weapon = "Stick", Swings = 1L) {
 }
 
 CalculateBaseAttackBonus <- function() {
-  ComputedStatValue$BaseAttackBonus <<- ComputedStatValue["StrengthBonus"]
+  ComputedStatValue$BaseAttackBonus <<- ComputedStatValue$StrengthBonus
  }
 
 CalculateFortitudeSave <- function() {
@@ -160,7 +167,6 @@ CharGen <- function(Genre = "Fantasy", Game = "DandD", Method = "4d6droplow") {
   GenerateStats(Game, Method)
   AssignClass(RecommendClass())
   ComputeStats(CharStats)
-  AddHitDie(CharClass)
   DisplayChar()
   Attack(Swings = 100)
   #DisplayAttackLog()
@@ -203,7 +209,7 @@ ComputeStat <- function(ComputedStat) {
 
 ComputeStats <- function(CharStats) {
   #for (x in seq_along(ComputedStatList)) (ComputedStatValue[x] <<- 0)
-  names(ComputedStatValue) <<-unlist (ComputedStatList)
+  names(ComputedStatValue) <<- unlist(ComputedStatList)
   for (x in seq_along(ComputedStatList)) ComputedStatValue[x] <<- ComputeStat(unlist(ComputedStatList[x]))
 }
 
@@ -342,7 +348,7 @@ PickFantasyNickName <- function() {
 
 PickFantasyEndTitle <- function() {
   if(RollDice(10) == 1) {
-    trimws(paste("'", (FantasyNickNames[(sample(seq_along(FantasyEndTitles), 1))]), "'", sep = ""))
+    trimws(paste("'", (FantasyEndTitles[(sample(seq_along(FantasyEndTitles), 1))]), "'", sep = ""))
   }
 }
 
@@ -491,7 +497,7 @@ if (ValidateStatSwap(FirstStat, SecondStat)) {
 }
 }
 SwingBonus <- function() {
-  ReturnComputedStatValue("StrengthBonus")
+  ComputedStatValue$BaseAttackBonus
 }
 ValidateDieRoll <- function(DieSize, DiceNumber, Bonus) {
   if (DieSize %in% ValidDieSize && DiceNumber >= 1L && Bonus == as.integer(Bonus)) {
@@ -523,10 +529,10 @@ ColorList <- list("", "", "", "", "", "")
 TargetDummyAC <- 10L
 TempDice <- 0L
 TotalRolled <- 0L
-ComputedStatValue <- 0L
 CharClass <- "Monk"
 AttackLog <- list(0, 0)
 CharacterData <- list("CharFullName", "CharStats", "ComputedStatValue")
 ComputedStatValue <- list(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-HitPoints<-0L
-CharacterLevel=1L
+HitPoints <- 0L
+CharacterLevel <- 1L
+UnusedSkillPoints <- 0L
