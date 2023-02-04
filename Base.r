@@ -6,80 +6,79 @@ AddSpeciesBonus <- function(Stat, Bonus = 0L) {
   }
  }
 
- AddBaseAttackBonus<<-function(ClassAdded) {
-  if(ClassAdded %in% list("Barbarian", "Fighter", "Paladin", "Ranger"))
+ AddBaseAttackBonus <<- function(CharClass) {
+  if (CharClass %in% list("Barbarian", "Fighter", "Paladin", "Ranger"))
   ComputedStatValue$BaseAttackBonus <<- ComputedStatValue$BaseAttackBonus + 1
  }
 
-AddSaves <<-function(ClassAdded) {
-  if(ClassAdded == "Barbarian") {
+AddSaves <<- function(CharClass) {
+  if (CharClass == "Barbarian") {
     ComputedStatValue$ReflexSave <<- (ComputedStatValue$ReflexSave + 2)
     } else
-  if(ClassAdded == "Bard") {
+  if (CharClass == "Bard") {
     ComputedStatValue$ReflexSave <<- (ComputedStatValue$ReflexSave + 2)
     ComputedStatValue$WillSave <<- (ComputedStatValue$WillSave + 2)
   } else
-  if(ClassAdded == "Cleric") {
+  if (CharClass == "Cleric") {
     ComputedStatValue$FortitudeSave <<- (ComputedStatValue$FortitudeSave + 2)
     ComputedStatValue$WillSave <<- (ComputedStatValue$WillSave + 2)
     } else
-  if(ClassAdded == "Druid") {
+  if (CharClass == "Druid") {
     ComputedStatValue$FortitudeSave <<- (ComputedStatValue$FortitudeSave + 2)
     ComputedStatValue$WillSave <<- (ComputedStatValue$WillSave + 2)
     } else
-  if(ClassAdded == "Fighter") {
+  if (CharClass == "Fighter") {
     ComputedStatValue$FortitudeSave <<- (ComputedStatValue$FortitudeSave + 2)
     } else
-  if(ClassAdded == "Monk") {
+  if (CharClass == "Monk") {
     ComputedStatValue$ReflexSave <<- (ComputedStatValue$ReflexSave + 2)
     ComputedStatValue$FortitudeSave <<- (ComputedStatValue$FortitudeSave + 2)
     ComputedStatValue$WillSave <<- (ComputedStatValue$WillSave + 2)
     } else
-  if(ClassAdded == "Paladin") {
+  if (CharClass == "Paladin") {
     ComputedStatValue$FortitudeSave <<- (ComputedStatValue$FortitudeSave + 2)
     ComputedStatValue$WillSave <<- (ComputedStatValue$WillSave + 2)
     } else
-  if(ClassAdded == "Ranger") {
+  if (CharClass == "Ranger") {
     ComputedStatValue$FortitudeSave <<- (ComputedStatValue$FortitudeSave + 2)
     ComputedStatValue$ReflexSave <<- (ComputedStatValue$ReflexSave + 2)
     } else
-  if(ClassAdded == "Rogue") {
+  if (CharClass == "Rogue") {
     ComputedStatValue$ReflexSave <<- (ComputedStatValue$ReflexSave + 2)
     } else
-  if(ClassAdded == "Sorceror") {
+  if (CharClass == "Sorceror") {
     ComputedStatValue$WillSave <<- (ComputedStatValue$WillSave + 2)
     } else
-  if(ClassAdded == "Wizard") {
+  if (CharClass == "Wizard") {
     ComputedStatValue$WillSave <<- (ComputedStatValue$WillSave + 2)
     }
     return(ComputedStatValue)
 }
 
-AddSkillPoints <<-function(ClassAdded) {
+AddSkillPoints <<- function(CharClass) {
  UnusedSkillPoints <<- 0L
 }
 
-AddClassHitDie <<- function(ClassAdded) {
-if (ClassAdded == "Barbarian") {
+AddClassHitDie <<- function(CharClass) {
+if (CharClass == "Barbarian") {
   return(12)
-  }
-else if (ClassAdded %in% (list("Fighter", "Paladin", "Ranger"))) {
+  } else
+ if (CharClass %in% (list("Fighter", "Paladin", "Ranger"))) {
    return(10)
-}
-else if (ClassAdded %in% (list("Druid", "Cleric", "Bard", "Monk", "Rogue"))) {
+} else
+ if (CharClass %in% (list("Druid", "Cleric", "Bard", "Monk", "Rogue"))) {
   return(8)
-  }
-else if (ClassAdded %in% (list("Sorceror, Wizard"))) {
+  } else
+   if (CharClass %in% (list("Sorceror, Wizard"))) {
   return(6)
   }
 }
 
-ClassHitDice<-list(c(12L, 8L, 8L, 8L, 10L, 8L, 10L, 10L, 8L, 6L, 6L))
-names(ClassHitDice) <- list(ClassList)
+#ClassHitDice <<- list(c(12L, 8L, 8L, 8L, 10L, 8L, 10L, 10L, 8L, 6L, 6L))
+#names(ClassHitDice) <<- list(ClassList)
 
-AddHitDie <<- function(ClassAdded) {
-if(CharacterLevel == 1) {HitPoints <<- AddClassHitDie(ClassAdded) + ComputedStatValue$ConstitutionBonus}
-else if(CharacterLevel > 1) {Hitpoints <<- Hitpoints + RollDice(DieSize = AddClassHitDie(ClassAdded), Bonus = ComputedStatValue$ConstitutionBonus)}
+AddHitDie <<- function(CharClass) {
+  HitPoints <<- AddClassHitDie(CharClass) + ComputedStatValue$ConstitutionBonus
 }
 
 AdjustStatsSpecies <- function(CharSpecies = "Human") {
@@ -114,12 +113,11 @@ AdjustStatsSpecies <- function(CharSpecies = "Human") {
    }
   }
 
-AssignClass <- function(ClassPicked) {
-  if (ClassPicked %in% ClassList) {
-    CharClass <<- ClassPicked
+AssignClass <- function(CharClass) {
+  if (CharClass %in% ClassList) {
     CharacterLevel <<- 1L
-    AddSaves(CharClass)
     AddHitDie(CharClass)
+    AddSaves(CharClass)
     AddBaseAttackBonus(CharClass)
   }
 }
@@ -165,12 +163,13 @@ CharGen <- function(Genre = "Fantasy", Game = "DandD", Method = "4d6droplow") {
   GenerateName()
   AssignSpecies()
   GenerateStats(Game, Method)
-  AssignClass(RecommendClass())
+  CharClass <<- RecommendClass()
   ComputeStats(CharStats)
+  AssignClass(CharClass)
   DisplayChar()
   Attack(Swings = 100)
   #DisplayAttackLog()
-  SaveChar()
+  #SaveChar()
  }
 
 ColorStats <- function() {
@@ -208,9 +207,10 @@ ComputeStat <- function(ComputedStat) {
 }
 
 ComputeStats <- function(CharStats) {
-  #for (x in seq_along(ComputedStatList)) (ComputedStatValue[x] <<- 0)
-  names(ComputedStatValue) <<- unlist(ComputedStatList)
-  for (x in seq_along(ComputedStatList)) ComputedStatValue[x] <<- ComputeStat(unlist(ComputedStatList[x]))
+  names(ComputedStatValue) <<- ComputedStatList
+  for (x in seq_along(ComputedStatList)) {
+  ComputedStatValue[x] <<- ComputeStat(unlist(ComputedStatList[x]))
+  }
 }
 
 DamageBonus <- function() {
@@ -276,7 +276,11 @@ min(unlist(CharStats))
 
 GenerateName <- function(Genre = "Fantasy") {
 CharFullName <<- if (Genre == "Fantasy") {
-  gsub("  ", " ", trimws(paste(PickMainTitle("Fantasy"), PickFirstName("Fantasy"), PickNickName("Fantasy"), PickLastName("Fantasy"), PickEndTitle("Fantasy"))), fixed = TRUE)
+  gsub("  ", " ", trimws(paste(PickMainTitle("Fantasy")
+  , PickFirstName("Fantasy")
+  , PickNickName("Fantasy")
+  , PickLastName("Fantasy")
+  , PickEndTitle("Fantasy"))), fixed = TRUE)
   }
   return(CharFullName)
 }
@@ -312,7 +316,9 @@ GenerateStats <- function(Game, Method = "3d6") {
 
 GraphStats <- function() {
   ColorStats()
-   barplot(as.numeric(CharStats), names.arg = substr(StatList, 1, 3), col = unlist(ColorList))
+   barplot(as.numeric(CharStats)
+   , names.arg = substr(StatList, 1, 3)
+   , col = unlist(ColorList))
 }
 
 LoadChar <- function(CharFile) {
@@ -342,13 +348,19 @@ PickFantasyMainTitle <- function() {
 
 PickFantasyNickName <- function() {
   if (RollDice(10) == 1) {
-    trimws(paste("'", (FantasyNickNames[(sample(seq_along(FantasyNickNames), 1))]), "'", sep = ""))
+    trimws(paste("'"
+    , (FantasyNickNames[(sample(seq_along(FantasyNickNames), 1))])
+    , "'"
+    , sep = ""))
   }
 }
 
 PickFantasyEndTitle <- function() {
-  if(RollDice(10) == 1) {
-    trimws(paste("'", (FantasyEndTitles[(sample(seq_along(FantasyEndTitles), 1))]), "'", sep = ""))
+  if (RollDice(10) == 1) {
+    trimws(paste("'"
+    , (FantasyEndTitles[(sample(seq_along(FantasyEndTitles), 1))])
+    , "'"
+    , sep = ""))
   }
 }
 
@@ -491,7 +503,11 @@ StatColors <- function(CharStats, MaxStats) {
 }
 SwapStats <- function(FirstStat, SecondStat) {
 if (ValidateStatSwap(FirstStat, SecondStat)) {
-  replace(CharStats, c(ReturnStatIndex(FirstStat), ReturnStatIndex(SecondStat)), CharStats <<- CharStats[c(ReturnStatIndex(SecondStat), ReturnStatIndex(FirstStat))])
+  replace(CharStats
+  , c(ReturnStatIndex(FirstStat)
+  , ReturnStatIndex(SecondStat))
+  , CharStats <<- CharStats[c(ReturnStatIndex(SecondStat)
+  , ReturnStatIndex(FirstStat))])
   DisplayChar()
   RecommendClass(CharStats)
 }
@@ -500,30 +516,117 @@ SwingBonus <- function() {
   ComputedStatValue$BaseAttackBonus
 }
 ValidateDieRoll <- function(DieSize, DiceNumber, Bonus) {
-  if (DieSize %in% ValidDieSize && DiceNumber >= 1L && Bonus == as.integer(Bonus)) {
+  if (
+    DieSize %in% ValidDieSize && DiceNumber >= 1L && Bonus == as.integer(Bonus)
+    ) {
     return(TRUE)
     } else {
       return(FALSE)
       }
 }
 ValidateStatSwap <- function(FirstStat, SecondStat) {
-  if (FirstStat == SecondStat || !(FirstStat %in% StatList) || !(SecondStat %in% StatList)) {
+  if (FirstStat == SecondStat
+   || !(FirstStat %in% StatList)
+   || !(SecondStat %in% StatList)) {
     FALSE
     } else {
       TRUE
       }
  }
-StatList <<- list("Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma")
+StatList <<- list("Strength"
+, "Dexterity"
+, "Constitution"
+, "Intelligence"
+, "Wisdom"
+, "Charisma")
 ValidDieSize <- list(4L, 6L, 8L, 10L, 12L, 20L, 100L)
-SpeciesList <<- list("Human", "Dwarf", "Elf", "Human", "Gnome", "Half-Orc", "Half-Elf")
-ComputedStatList <- list("StrengthBonus", "DexterityBonus", "ConstitutionBonus", "IntelligenceBonus", "WisdomBonus", "CharismaBonus", "FortitudeSave", "ReflexSave", "WillSave", "Initiative", "BaseAttackBonus")
-BaseComputedStatList <- list("StrengthBonus", "DexterityBonus", "ConstitutionBonus", "IntelligenceBonus", "WisdomBonus", "CharismaBonus")
-ClassList <- list("Barbarian", "Bard", "Cleric", "Druid", "Fighter", "Monk", "Paladin", "Ranger", "Rogue", "Sorceror", "Wizard")
-FantasyEndTitles <- list("of the Mirkwood", ", Mother of Dragons", "The Bootlicker", ", Maimer of Men", "The Pyromancer", ", King of the Wild Frontier")
-FantasyMainTitles <- list("King", "Queen", "Lord", "Lady", "Huntress", "Duke", "Duchess", "Prince", "Princess")
-FantasyNickNames <- list("Kit", "Strider", "The Defenestrator", "Bork", "Elvenfriend", "Silverhair", "Barkeep")
-FirstNames <- list("Gwendolyn", "Echnoid", "Maydela", "Starla", "Pearl", "Mirella", "Raspberry", "FireSika", "Janet", "Jennifer", "Nico", "Barbara", "Carol", "Molly", "Diana")
-LastNames <- list("Young", "of the House of Elrond", "Borogrove", "Symmetry", "Blue", "Celeste", "Agbayani", "Holman", "Van Dyne", "Walters", "Minoru", "Gordon",  "Danvers", "Hayes", "Prince")
+SpeciesList <<- list("Human"
+, "Dwarf"
+, "Elf"
+, "Human"
+, "Gnome"
+, "Half-Orc"
+, "Half-Elf")
+ComputedStatList <- list("StrengthBonus"
+, "DexterityBonus"
+, "ConstitutionBonus"
+, "IntelligenceBonus"
+, "WisdomBonus"
+, "CharismaBonus"
+, "FortitudeSave"
+, "ReflexSave"
+, "WillSave"
+, "Initiative"
+, "BaseAttackBonus")
+BaseComputedStatList <- list("StrengthBonus"
+, "DexterityBonus"
+, "ConstitutionBonus"
+, "IntelligenceBonus"
+, "WisdomBonus"
+, "CharismaBonus")
+ClassList <- list("Barbarian"
+, "Bard"
+, "Cleric"
+, "Druid"
+, "Fighter"
+, "Monk"
+, "Paladin"
+, "Ranger"
+, "Rogue"
+, "Sorceror"
+, "Wizard")
+FantasyEndTitles <- list("of the Mirkwood"
+, ", Mother of Dragons"
+, "The Bootlicker"
+, ", Maimer of Men"
+, "The Pyromancer"
+, ", King of the Wild Frontier")
+FantasyMainTitles <- list("King"
+, "Queen"
+, "Lord"
+, "Lady"
+, "Huntress"
+, "Duke"
+, "Duchess"
+, "Prince"
+, "Princess")
+FantasyNickNames <- list("Kit"
+, "Strider"
+, "The Defenestrator"
+, "Bork"
+, "Elvenfriend"
+, "Silverhair"
+, "Barkeep")
+FirstNames <- list("Gwendolyn"
+, "Echnoid"
+, "Maydela"
+, "Starla"
+, "Pearl"
+, "Mirella"
+, "Raspberry"
+, "FireSika"
+, "Janet"
+, "Jennifer"
+, "Nico"
+, "Barbara"
+, "Carol"
+, "Molly"
+, "Diana")
+LastNames <- list("Young"
+, "of the House of Elrond"
+, "Borogrove"
+, "Symmetry"
+, "Blue"
+, "Celeste"
+, "Agbayani"
+, "Holman"
+, "Van Dyne"
+, "Walters"
+, "Minoru"
+, "Gordon"
+, "Danvers"
+, "Hayes"
+, "Prince")
 CharStats <- list(0L, 0L, 0L, 0L, 0L, 0L)
 ColorList <- list("", "", "", "", "", "")
 TargetDummyAC <- 10L
@@ -536,3 +639,5 @@ ComputedStatValue <- list(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 HitPoints <- 0L
 CharacterLevel <- 1L
 UnusedSkillPoints <- 0L
+CharSpecies <- "Human"
+CharFullName <- "Jane Doe"
