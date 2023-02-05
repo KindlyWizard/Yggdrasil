@@ -1,3 +1,19 @@
+InitializeData <-function() {
+  InputFirstNamesFromCSV()
+  InputLastNamesFromCSV()
+  InputFantasyNickNamesFromCSV()
+  InputMainTitlesFromCSV()
+  InputEndTitlesFromCSV()
+}
+
+OutputData <-function() {
+OutputFirstNamesToCSV()
+OutputLastNamesToCSV()
+OutputFantasyNickNamesToCSV()
+OutputMainTitlesToCSV()
+OutputEndTitlesToCSV()
+}
+
 AddSpeciesBonus <- function(Stat, Bonus = 0L) {
   for (x in seq_along(StatList)) {
     if (Stat == (as.character(StatList[x]))) {
@@ -332,6 +348,46 @@ OutputSpecies <- function() {
 
 OutputSpeciesAndClass <- function() {
  print(paste(CharSpecies, CharClass))
+}
+
+OutputMainTitlesToCSV <- function() {
+  write.table(unlist(FantasyMainTitles), file="data\\FantasyMainTitles.csv", row.names = FALSE, col.names = FALSE)
+}
+
+InputMainTitlesFromCSV <- function() {
+  FantasyMainTitles <<- list(read.csv(file="data\\FantasyMainTitles.csv"))
+}
+
+OutputEndTitlesToCSV <- function() {
+  write.table(unlist(FantasyEndTitles), file="data\\FantasyEndTitles.csv", row.names = FALSE, col.names = FALSE)
+}
+
+InputEndTitlesFromCSV <- function() {
+  FantasyEndTitles <<- list(read.csv(file="data\\FantasyEndTitles.csv"))
+}
+
+OutputFantasyNickNamesToCSV <- function() {
+  write.table(unlist(FantasyNickNames), file="data\\FantasyNickNames.csv", row.names = FALSE, col.names = FALSE)
+}
+
+InputFantasyNickNamesFromCSV <- function() {
+  FantasyNickNames <<- list(read.csv(file="data\\FantasyNickNames.csv"))
+}
+
+OutputFirstNamesToCSV <- function() {
+  write.table(unlist(FirstNames), file="data\\FirstNames.csv", row.names = FALSE, col.names = FALSE)
+}
+
+InputFirstNamesFromCSV <- function() {
+  FirstNames <<- list(read.csv(file="data\\FirstNames.csv"))
+}
+
+OutputLastNamesToCSV <- function() {
+  write.table(unlist(LastNames), file="data\\LastNames.csv", row.names = FALSE, col.names = FALSE)
+}
+
+InputLastNamesFromCSV <- function() {
+  LastNames <<- list(read.csv(file="data\\LastNames.csv"))
 }
 
 PickEndTitle <- function(Genre = "Fantasy") {
