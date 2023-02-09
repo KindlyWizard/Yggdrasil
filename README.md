@@ -10,3 +10,8 @@ The end goals, in order, are:
 3) Make a potentially useful tool for indie TTRPG makers
 4) As a demonstration for employers
 5) Potentially monetize it eventually (if this ever comes to pass, it's got to be in a friendly, scalable fashion)
+
+PROJECT TO-DOs: See if I can find a Product Owner for backlog clarification/prioritization.
+
+Kanban-style project board: https://trello.com/b/wlsVY7HE/chargen
+Development blog: https://www.linkedin.com/in/geoffrey-gill-29026761/recent-activity/
