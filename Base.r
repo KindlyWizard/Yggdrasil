@@ -8,11 +8,10 @@ source("attack.r")
 source("defaults.r")
 source("diceroller.r")
 source("skills.r")
+InitializeData()
 
 
-
-#ClassHitDice <<- list(c(12L, 8L, 8L, 8L, 10L, 8L, 10L, 10L, 8L, 6L, 6L))
-#names(ClassHitDice) <<- list(ClassList)
+ClassHitDice <<- list(c(12L, 8L, 8L, 8L, 10L, 8L, 10L, 10L, 8L, 6L, 6L))
 
 AddHitDie <<- function(CharClass) {
   HitPoints <<- AddClassHitDie(CharClass) + ComputedStatValue$ConstitutionBonus
@@ -25,6 +24,7 @@ CharGen <- function(Genre = "Fantasy", Game = "DandD", Method = "4d6droplow") {
   CharClass <<- RecommendClass()
   ComputeStats(CharStats)
   AssignClass(CharClass)
+  AddSkillPoints(CharClass)
   DisplayChar()
   Attack(Swings = 100)
   #DisplayAttackLog()
@@ -89,4 +89,22 @@ ReturnStatValue <- function(StatIndex) {
 
 SaveChar <- function() {
   save(CharacterData, file = paste(CharFullName, ".rds", sep = ""))
+}
+
+InitializeData <- function() {
+  InputFirstNamesFromCSV()
+  InputLastNamesFromCSV()
+  InputFantasyNickNamesFromCSV()
+  InputMainTitlesFromCSV()
+  InputEndTitlesFromCSV()
+  InputSkillListFromCSV()
+}
+
+OutputData <- function() {
+OutputFirstNamesToCSV()
+OutputLastNamesToCSV()
+OutputFantasyNickNamesToCSV()
+OutputMainTitlesToCSV()
+OutputEndTitlesToCSV()
+OutputSkillListToCSV()
 }

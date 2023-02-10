@@ -56,8 +56,8 @@ CalculateFortitudeSave <- function() {
   ComputedStatValue$FortitudeSave <<- ComputedStatValue$ConstitutionBonus
  }
 
-CalculateInitiative <- function() {
-  ComputedStatValue$Initiative <<- ComputedStatValue$DexerityBonus
+CalculateInitiativeBonus <- function() {
+  ComputedStatValue$InitiativeBonus <<- ComputedStatValue$DexerityBonus
  }
 
 CalculateReflexSave <- function() {
@@ -75,9 +75,9 @@ CalculateWillSave <- function() {
 ComputeOtherStats <- function(ComputedStat) {
   if (ComputedStat == "FortitudeSave") CalculateFortitudeSave()
     else if (ComputedStat == "ReflexSave") CalculateReflexSave()
-     else if (ComputedStat == "WillSave") CalculateWillSave()
-      else if (ComputedStat == "Initiative") CalculateInitiative()
-      else if (ComputedStat == "BaseAttackBonus") CalculateBaseAttackBonus()
+    else if (ComputedStat == "WillSave") CalculateWillSave()
+    else if (ComputedStat == "InitiativeBonus") CalculateInitiativeBonus()
+    else if (ComputedStat == "BaseAttackBonus") CalculateBaseAttackBonus()
 }
 
 ComputeStat <- function(ComputedStat) {
@@ -109,4 +109,4 @@ DisplayStats <- function() {
   for (x in seq_along(StatList)) {
     print(paste(StatList[x], CharStats[x]))
     }
-    }
+}

@@ -1,18 +1,4 @@
-InitializeData <- function() {
-  InputFirstNamesFromCSV()
-  InputLastNamesFromCSV()
-  InputFantasyNickNamesFromCSV()
-  InputMainTitlesFromCSV()
-  InputEndTitlesFromCSV()
-}
 
-OutputData <- function() {
-OutputFirstNamesToCSV()
-OutputLastNamesToCSV()
-OutputFantasyNickNamesToCSV()
-OutputMainTitlesToCSV()
-OutputEndTitlesToCSV()
-}
 
 InitializeData2 <- function() {
   NameComponents <<- matrix(length)
@@ -47,7 +33,7 @@ OutputMainTitlesToCSV <- function() {
 
 InputMainTitlesFromCSV <- function() {
   FantasyMainTitles <<- length(1024)
-  FantasyMainTitles <<- list(read.csv(file = "data\\FantasyMainTitles.csv", header = FALSE))
+  FantasyMainTitles <<- unlist(read.csv(file = "data\\FantasyMainTitles.csv", header = FALSE))
 }
 
 OutputEndTitlesToCSV <- function() {
@@ -59,7 +45,7 @@ OutputEndTitlesToCSV <- function() {
 
 InputEndTitlesFromCSV <- function() {
   FantasyEndTitles <<- length(1024)
-  FantasyEndTitles <<- list(read.csv(file = "data\\FantasyEndTitles.csv", header = FALSE))
+  FantasyEndTitles <<- unlist(read.csv(file = "data\\FantasyEndTitles.csv", header = FALSE))
 }
 
 OutputFantasyNickNamesToCSV <- function() {
@@ -71,7 +57,7 @@ OutputFantasyNickNamesToCSV <- function() {
 
 InputFantasyNickNamesFromCSV <- function() {
   FantasyNickNames <<- length(1024)
-  FantasyNickNames <<- list(read.csv(file = "data\\FantasyNickNames.csv", header = FALSE))
+  FantasyNickNames <<- unlist(read.csv(file = "data\\FantasyNickNames.csv", header = FALSE))
 }
 
 OutputFirstNamesToCSV <- function() {
@@ -83,7 +69,7 @@ OutputFirstNamesToCSV <- function() {
 
 InputFirstNamesFromCSV <- function() {
   FirstNames <<- length(1024)
-  FirstNames <<- list(read.csv(file = "data\\FirstNames.csv", header = FALSE))
+  FirstNames <<- unlist(read.csv(file = "data\\FirstNames.csv", header = FALSE))
 }
 
 OutputLastNamesToCSV <- function() {
@@ -94,7 +80,7 @@ OutputLastNamesToCSV <- function() {
 }
 
 InputLastNamesFromCSV <- function() {
-  LastNames <<- list(read.csv(file = "data\\LastNames.csv", header = FALSE))
+  LastNames <<- unlist(read.csv(file = "data\\LastNames.csv", header = FALSE))
   length(LastNames) <- 1024
 }
 

@@ -73,7 +73,7 @@ if (CharClass == "Barbarian") {
  if (CharClass %in% (list("Druid", "Cleric", "Bard", "Monk", "Rogue"))) {
   return(8)
   } else
-   if (CharClass %in% (list("Sorceror, Wizard"))) {
+   if (CharClass %in% (list("Sorceror", "Wizard"))) {
   return(6)
   }
 }

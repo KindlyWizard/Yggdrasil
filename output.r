@@ -19,6 +19,7 @@ OutputSpeciesAndClass()
   print(paste("HP:", HitPoints, sep = " "))
   DisplayComputedStats()
   #GraphStats()
+  DisplaySkills()
 }
 
 OutputSpecies <- function() {

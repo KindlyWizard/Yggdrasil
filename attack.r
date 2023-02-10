@@ -11,3 +11,7 @@ Attack <- function(Weapon = "Stick", Swings = 1L) {
 DisplayAttackLog <- function() {
   barplot(table(unlist(AttackLog[seq_along(AttackLog)])))
 }
+
+SwingBonus <- function() {
+  ComputedStatValue$BaseAttackBonus
+}

@@ -21,7 +21,7 @@ ComputedStatList <- list("StrengthBonus"
 , "FortitudeSave"
 , "ReflexSave"
 , "WillSave"
-, "Initiative"
+, "InitiativeBonus"
 , "BaseAttackBonus")
 BaseComputedStatList <- list("StrengthBonus"
 , "DexterityBonus"
@@ -48,7 +48,7 @@ TotalRolled <- 0L
 CharClass <- "Monk"
 AttackLog <- list(0, 0)
 CharacterData <- list("CharFullName", "CharStats", "ComputedStatValue")
-ComputedStatValue <- list(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+ComputedStatValue <<- list(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 HitPoints <- 0L
 CharacterLevel <- 1L
 UnusedSkillPoints <- 0L
@@ -64,3 +64,5 @@ LastNames <- NULL
 FantasyEndTitles <- NULL
 FantasyNickNames <- NULL
 FantasyMainTitles <- NULL
+BaseSkillPoints <- list(4, 6, 2, 4, 2, 4, 2, 6, 8, 2, 2)
+names(BaseSkillPoints) <- ClassList
