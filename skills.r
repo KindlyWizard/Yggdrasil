@@ -16,7 +16,7 @@ AddSkillPoint <<- function(SelectedSkill) {
 }
 
 RemoveSkillPoints <<- function(SelectedSkill) {
-    if (CharSkills[[SelectedSkill]] > 0) {
+    if (as.numeric(CharSkills[[SelectedSkill]]) > 0) {
     UnusedSkillPoints <<- UnusedSkillPoints + 1
     CharSkills[[SelectedSkill]] <<- as.numeric(CharSkills[[SelectedSkill]]) - 1
     } else {
@@ -25,7 +25,7 @@ RemoveSkillPoints <<- function(SelectedSkill) {
 }
 
 AssignCharSkills <<-function() {
-    for (x in seq_along(SkillList)) {CharSkills[x]<-0L}
+    for (x in seq_along(SkillList)) {CharSkills[x] <<- 0L}
     names(CharSkills) <<- SkillList
 }
 
@@ -42,6 +42,14 @@ InputSkillListFromCSV <- function() {
 }
 
 DisplaySkills <-function() {
-    print(CharSkills)
+    for (x in seq_along(CharSkills)) {
+        if (CharSkills[x] > 0) {
+            print(CharSkills[x])
+        }
+    }
     print(paste("Unused Skill Points:", UnusedSkillPoints))
+}
+
+RecommendSkills <- function() {
+    
 }

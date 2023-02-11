@@ -20,6 +20,7 @@ OutputSpeciesAndClass()
   DisplayComputedStats()
   #GraphStats()
   DisplaySkills()
+  DisplayFeats()
 }
 
 OutputSpecies <- function() {

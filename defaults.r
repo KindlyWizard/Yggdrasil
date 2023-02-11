@@ -54,15 +54,18 @@ CharacterLevel <- 1L
 UnusedSkillPoints <- 0L
 CharSpecies <- "Human"
 CharFullName <- "Jane Doe"
+FirstNames <<- NULL
+LastNames <<- NULL
+FantasyEndTitles <<- NULL
+FantasyNickNames <<- NULL
+FantasyMainTitles <<- NULL
 NameComponents <<- c("FantasyMainTitles" = FantasyMainTitles
 , "FirstNames" = FirstNames
 , "FantasyNickNames" = FantasyNickNames
 , "LastNames" = LastNames
 , "FantasyEndTitles" = FantasyEndTitles)
-FirstNames <- NULL
-LastNames <- NULL
-FantasyEndTitles <- NULL
-FantasyNickNames <- NULL
-FantasyMainTitles <- NULL
 BaseSkillPoints <- list(4, 6, 2, 4, 2, 4, 2, 6, 8, 2, 2)
 names(BaseSkillPoints) <- ClassList
+CharSkills <<- list(0L)
+CharFeats <<- list(0L)
+UnassignedFeatPoints <<- 0L

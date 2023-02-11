@@ -8,6 +8,7 @@ source("attack.r")
 source("defaults.r")
 source("diceroller.r")
 source("skills.r")
+source("feats.r")
 InitializeData()
 
 
@@ -25,6 +26,7 @@ CharGen <- function(Genre = "Fantasy", Game = "DandD", Method = "4d6droplow") {
   ComputeStats(CharStats)
   AssignClass(CharClass)
   AddSkillPoints(CharClass)
+  AddFeatPoints()
   DisplayChar()
   Attack(Swings = 100)
   #DisplayAttackLog()
@@ -98,6 +100,7 @@ InitializeData <- function() {
   InputMainTitlesFromCSV()
   InputEndTitlesFromCSV()
   InputSkillListFromCSV()
+  InputFeatListFromCSV()
 }
 
 OutputData <- function() {
@@ -107,4 +110,5 @@ OutputFantasyNickNamesToCSV()
 OutputMainTitlesToCSV()
 OutputEndTitlesToCSV()
 OutputSkillListToCSV()
+OutputFeatListToCSV()
 }

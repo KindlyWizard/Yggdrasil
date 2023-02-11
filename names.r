@@ -1,4 +1,18 @@
+InitializeData <- function() {
+  InputFirstNamesFromCSV()
+  InputLastNamesFromCSV()
+  InputFantasyNickNamesFromCSV()
+  InputMainTitlesFromCSV()
+  InputEndTitlesFromCSV()
+}
 
+OutputData <- function() {
+OutputFirstNamesToCSV()
+OutputLastNamesToCSV()
+OutputFantasyNickNamesToCSV()
+OutputMainTitlesToCSV()
+OutputEndTitlesToCSV()
+}
 
 InitializeData2 <- function() {
   NameComponents <<- matrix(length)
