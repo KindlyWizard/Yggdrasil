@@ -1,0 +1,36 @@
+Skill,Barbarian,Bard,Cleric,Druid,Fighter,Monk,Paladin,Ranger,Rogue,Sorceror,Wizard,Untrained,Armor Check Penalty,Key Ability
+Acrobatics,1,1,0,0,0,1,0,0,1,0,0,Yes,Yes,Dex
+Appraise,0,1,1,0,0,0,0,0,1,1,1,Yes, ,Int
+Bluff,0,1,0,0,0,0,0,0,1,1,0,Yes, ,Cha
+Climb,1,1,0,1,1,1,0,1,1,0,0,Yes,Yes,Str
+Craft,1,1,1,1,1,1,1,1,1,1,1,Yes, ,Int
+Diplomacy,0,1,1,0,0,0,1,0,1,0,0,Yes, ,Cha
+Disable Device,0,0,0,0,0,0,0,0,1,0,0,No,Yes,Dex
+Disguise,0,1,0,0,0,0,0,0,1,0,0,Yes, ,Cha
+Escape Artist,0,1,0,0,0,1,0,0,1,0,0,Yes,Yes,Dex
+Fly,0,0,0,1,0,0,0,0,0,1,1,Yes,Yes,Dex
+Handle Animal,1,0,0,1,1,0,1,1,0,0,0,No, ,Cha
+Heal,0,0,1,1,0,0,1,1,0,0,0,Yes, ,Wis
+Intimidate,1,1,0,0,1,1,0,1,1,1,0,Yes, ,Cha
+Knowledge (arcana),0,1,1,0,0,0,0,0,0,1,1,No, ,Int
+Knowledge (dungeoneering),0,1,0,0,1,0,0,1,1,0,1,No, ,Int
+Knowledge (engineering),0,1,0,0,1,0,0,0,0,0,1,No, ,Int
+Knowledge (geography),0,1,0,1,0,0,0,1,0,0,1,No, ,Int
+Knowledge (history),0,1,1,0,0,1,0,0,0,0,1,No, ,Int
+Knowledge (local),0,1,0,0,0,0,0,0,1,0,1,No, ,Int
+Knowledge (nature),1,1,0,1,0,0,0,1,0,0,1,No, ,Int
+Knowledge (nobility),0,1,1,0,0,0,1,0,0,0,1,No, ,Int
+Knowledge (planes),0,1,1,0,0,0,0,0,0,0,1,No, ,Int
+Knowledge (religion),0,1,1,0,0,1,1,0,0,0,1,No, ,Int
+Linguistics,0,1,1,0,0,0,0,0,1,0,1,No, ,Int
+Perception,1,1,0,1,0,1,0,1,1,0,0,Yes, ,Wis
+Perform,0,1,0,0,0,1,0,0,1,0,0,Yes, ,Cha
+Profession,0,1,1,1,1,1,1,1,1,1,1,No, ,Wis
+Ride,1,0,0,1,1,1,1,1,0,0,0,Yes,Yes,Dex
+Sense Motive,0,1,1,0,0,1,1,0,1,0,0,Yes, ,Wis
+Sleight of Hand,0,1,0,0,0,0,0,0,1,0,0,No,Yes,Dex
+Spellcraft,0,1,1,1,0,0,1,1,0,1,1,No, ,Int
+Stealth,0,1,0,0,0,1,0,1,1,0,0,Yes,Yes,Dex
+Survival,1,0,0,1,1,0,0,1,0,0,0,Yes, ,Wis
+Swim,1,0,0,1,1,1,0,1,1,0,0,Yes,Yes,Str
+Use Magic Device,0,1,0,0,0,0,0,0,1,1,0,No, ,Cha

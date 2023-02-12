@@ -51,5 +51,13 @@ DisplaySkills <-function() {
 }
 
 RecommendSkills <- function() {
+
+}
+
+GenerateSkillListFromMatrix <-function() {
+
+}
+
+AssignSkillPoint <-function() {
     
 }

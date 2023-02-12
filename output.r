@@ -21,6 +21,13 @@ OutputSpeciesAndClass()
   #GraphStats()
   DisplaySkills()
   DisplayFeats()
+  DisplayVitalStats(Age, Weight, Height)
+  DisplayCharMoney(CharMoney, CharMainTitle, CharFirstName)
+  DisplayDescription()
+}
+
+DisplayDescription <- function() {
+  print(CharDescription)
 }
 
 OutputSpecies <- function() {
@@ -40,4 +47,14 @@ GraphStats <- function() {
 
 StatColors <- function(CharStats, MaxStats) {
   MaxStats <<- max(unlist(CharStats))
+}
+
+DisplayVitalStats <- function(Age, Weight, Height) {
+print(paste("Age:", as.character(Age)))
+print(paste("Weight(lb):", as.character(Weight)))
+print(paste("Height(in):", as.character(Height)))
+}
+
+DisplayCharMoney <- function(CharMoney, CharMainTitle, CharFirstName) {
+  print(GenerateMoneyString(CharMoney, CharMainTitle, CharFirstName))
 }

@@ -4,6 +4,8 @@ InitializeData <- function() {
   InputFantasyNickNamesFromCSV()
   InputMainTitlesFromCSV()
   InputEndTitlesFromCSV()
+  InputFantasyFirstNamesFromCSV()
+  InputFantasyLastNamesFromCSV()
 }
 
 OutputData <- function() {
@@ -69,6 +71,23 @@ OutputFantasyNickNamesToCSV <- function() {
   , col.names = FALSE)
 }
 
+InputFantasyFirstNamesFromCSV <- function() {
+  FantasyFirstNames <<- length(1024)
+  FantasyFirstNames <<- unlist(read.csv(file = "data\\FantasyFirstNames.csv", header = FALSE))
+}
+
+OutputFantasyLastNamesToCSV <- function() {
+  write.table(unlist(FantasyLastNames)
+  , file = "data\\FantasyLastNames.csv"
+  , row.names = FALSE
+  , col.names = FALSE)
+}
+
+InputFantasyLastNamesFromCSV <- function() {
+  FantasyLastNames <<- length(1024)
+  FantasyLastNames <<- unlist(read.csv(file = "data\\FantasyLastNames.csv", header = FALSE))
+}
+
 InputFantasyNickNamesFromCSV <- function() {
   FantasyNickNames <<- length(1024)
   FantasyNickNames <<- unlist(read.csv(file = "data\\FantasyNickNames.csv", header = FALSE))
@@ -98,6 +117,15 @@ InputLastNamesFromCSV <- function() {
   length(LastNames) <- 1024
 }
 
+PickFantasyFirstName <- function() {
+  CharFirstName <<- FantasyFirstNames[(sample(seq_along(FantasyFirstNames), 1))]
+  return(CharFirstName)
+}
+
+PickFantasyLastName <- function() {
+  CharLastName <<- FantasyLastNames[(sample(seq_along(FantasyLastNames), 1))]
+  return(CharLastName)
+}
 
 PickEndTitle <- function(Genre = "Fantasy") {
   if (Genre == "Fantasy") {
@@ -105,37 +133,46 @@ PickEndTitle <- function(Genre = "Fantasy") {
   }
 }
 
-PickFantasyMainTitle <- function() {
+PickFantasyMainTitle <- function(CharMainTitle = "") {
  if (RollDice(10) == 1) {
-  return(FantasyMainTitles[(sample(seq_along(FantasyMainTitles), 1))])
+  CharMainTitle <<- FantasyMainTitles[(sample(seq_along(FantasyMainTitles), 1))]
+ } else {
+  CharMainTitle <<- NULL
  }
+ return(CharMainTitle)
 }
 
 PickFantasyNickName <- function() {
   if (RollDice(10) == 1) {
-    trimws(paste("'"
+    CharNickName <<- trimws(paste("'"
     , (FantasyNickNames[(sample(seq_along(FantasyNickNames), 1))])
     , "'"
     , sep = ""))
+  return(CharNickName)
   }
 }
 
 PickFantasyEndTitle <- function() {
   if (RollDice(10) == 1) {
-    trimws(paste("'"
+    CharEndTitle <<- trimws(paste("'"
     , (FantasyEndTitles[(sample(seq_along(FantasyEndTitles), 1))])
     , "'"
     , sep = ""))
+    return(CharEndTitle)
   }
 }
 
 PickFirstName <- function(Genre = "Fantasy") {
-  FirstNames[sample(length(FirstNames), 1)]
+if (Genre == "Fantasy")   {
+  paste(PickFantasyFirstName())
   }
+}
 
 PickLastName <- function(Genre = "Fantasy") {
-  LastNames[sample(length(LastNames), 1)]
+  if (Genre == "Fantasy")   {
+  paste(PickFantasyLastName())
   }
+}
 
 PickMainTitle <- function(Genre = "Fantasy") {
   if (Genre == "Fantasy") {

@@ -1,0 +1,3 @@
+GenerateDescription <- function() {
+    CharDescription <<- ""
+}

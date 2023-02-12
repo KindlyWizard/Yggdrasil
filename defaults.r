@@ -55,6 +55,7 @@ UnusedSkillPoints <- 0L
 CharSpecies <- "Human"
 CharFullName <- "Jane Doe"
 FirstNames <<- NULL
+FantasyFirstNames <<- NULL
 LastNames <<- NULL
 FantasyEndTitles <<- NULL
 FantasyNickNames <<- NULL
@@ -69,3 +70,6 @@ names(BaseSkillPoints) <- ClassList
 CharSkills <<- list(0L)
 CharFeats <<- list(0L)
 UnassignedFeatPoints <<- 0L
+StartingWealthList <<- list(3, 3, 4, 2, 5, 1, 5, 5, 4, 2, 2)
+names(StartingWealthList) <- ClassList
+CharMoney <<- 0L
