@@ -8,6 +8,15 @@ AssignClass <- function(CharClass) {
   }
 }
 
+RemoveClass <- function(CharClass) {
+  if (CharClass %in% ClassList) {
+    CharacterLevel <<- 0L
+    RemoveHitDie(CharClass)
+    RemoveSaves(CharClass)
+    RemoveBaseAttackBonus(CharClass)
+  }
+}
+
 RecommendClass <- function() {
   if (StatList[which.max(CharStats)] == "Strength") {
     if (CharStats$Constitution >= CharStats$Wisdom) {
@@ -75,5 +84,20 @@ if (CharClass == "Barbarian") {
   } else
    if (CharClass %in% (list("Sorceror", "Wizard"))) {
   return(6)
+  }
+}
+
+RemoveClassHitDie <<- function(CharClass) {
+if (CharClass == "Barbarian") {
+  return(0)
+  } else
+ if (CharClass %in% (list("Fighter", "Paladin", "Ranger"))) {
+   return(0)
+} else
+ if (CharClass %in% (list("Druid", "Cleric", "Bard", "Monk", "Rogue"))) {
+  return(0)
+  } else
+   if (CharClass %in% (list("Sorceror", "Wizard"))) {
+  return(0)
   }
 }

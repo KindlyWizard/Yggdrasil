@@ -18,12 +18,12 @@ OutputSpeciesAndClass()
  DisplayStats()
   print(paste("HP:", HitPoints, sep = " "))
   DisplayComputedStats()
-  #GraphStats()
+  GraphStats()
   DisplaySkills()
   DisplayFeats()
   DisplayVitalStats(Age, Weight, Height)
   DisplayCharMoney(CharMoney, CharMainTitle, CharFirstName)
-  DisplayDescription()
+  #DisplayDescription()
 }
 
 DisplayDescription <- function() {
@@ -52,9 +52,15 @@ StatColors <- function(CharStats, MaxStats) {
 DisplayVitalStats <- function(Age, Weight, Height) {
 print(paste("Age:", as.character(Age)))
 print(paste("Weight(lb):", as.character(Weight)))
-print(paste("Height(in):", as.character(Height)))
+CalculateHeightInFeetAndInches(Height)
+print(paste("Height(in):", Feet, "feet,", Inches, "inches"))
 }
 
 DisplayCharMoney <- function(CharMoney, CharMainTitle, CharFirstName) {
   print(GenerateMoneyString(CharMoney, CharMainTitle, CharFirstName))
+}
+
+CalculateHeightInFeetAndInches <-function(Height) {
+ Feet <<- floor(Height / 12)
+ Inches <<- Height - (Feet * 12)
 }

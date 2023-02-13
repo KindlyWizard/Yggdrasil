@@ -9,7 +9,7 @@ if (ValidateDieRoll(DieSize, DiceNumber, Bonus) == TRUE) {
   }
 }
 
-ValidateDieRoll <- function(DieSize, DiceNumber, Bonus) {
+ValidateDieRoll <- function(DieSize, DiceNumber, Bonus = 0L) {
   if (
     DieSize %in% ValidDieSize && DiceNumber >= 1L && Bonus == as.integer(Bonus)
     ) {

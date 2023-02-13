@@ -110,3 +110,52 @@ DisplayStats <- function() {
     print(paste(StatList[x], CharStats[x]))
     }
 }
+
+RemoveBaseAttackBonus <<- function(CharClass) {
+  if (CharClass %in% list("Barbarian", "Fighter", "Paladin", "Ranger"))
+  ComputedStatValue$BaseAttackBonus <<- ComputedStatValue$BaseAttackBonus - 1
+ }
+
+ RemoveSaves <<- function(CharClass) {
+  if (CharClass == "Barbarian") {
+    ComputedStatValue$ReflexSave <<- (ComputedStatValue$ReflexSave - 2)
+    } else
+  if (CharClass == "Bard") {
+    ComputedStatValue$ReflexSave <<- (ComputedStatValue$ReflexSave - 2)
+    ComputedStatValue$WillSave <<- (ComputedStatValue$WillSave - 2)
+  } else
+  if (CharClass == "Cleric") {
+    ComputedStatValue$FortitudeSave <<- (ComputedStatValue$FortitudeSave - 2)
+    ComputedStatValue$WillSave <<- (ComputedStatValue$WillSave - 2)
+    } else
+  if (CharClass == "Druid") {
+    ComputedStatValue$FortitudeSave <<- (ComputedStatValue$FortitudeSave - 2)
+    ComputedStatValue$WillSave <<- (ComputedStatValue$WillSave - 2)
+    } else
+  if (CharClass == "Fighter") {
+    ComputedStatValue$FortitudeSave <<- (ComputedStatValue$FortitudeSave - 2)
+    } else
+  if (CharClass == "Monk") {
+    ComputedStatValue$ReflexSave <<- (ComputedStatValue$ReflexSave - 2)
+    ComputedStatValue$FortitudeSave <<- (ComputedStatValue$FortitudeSave - 2)
+    ComputedStatValue$WillSave <<- (ComputedStatValue$WillSave - 2)
+    } else
+  if (CharClass == "Paladin") {
+    ComputedStatValue$FortitudeSave <<- (ComputedStatValue$FortitudeSave - 2)
+    ComputedStatValue$WillSave <<- (ComputedStatValue$WillSave - 2)
+    } else
+  if (CharClass == "Ranger") {
+    ComputedStatValue$FortitudeSave <<- (ComputedStatValue$FortitudeSave - 2)
+    ComputedStatValue$ReflexSave <<- (ComputedStatValue$ReflexSave - 2)
+    } else
+  if (CharClass == "Rogue") {
+    ComputedStatValue$ReflexSave <<- (ComputedStatValue$ReflexSave - 2)
+    } else
+  if (CharClass == "Sorceror") {
+    ComputedStatValue$WillSave <<- (ComputedStatValue$WillSave - 2)
+    } else
+  if (CharClass == "Wizard") {
+    ComputedStatValue$WillSave <<- (ComputedStatValue$WillSave - 2)
+    }
+    return(ComputedStatValue)
+}

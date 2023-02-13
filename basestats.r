@@ -45,3 +45,7 @@ if (ValidateStatSwap(FirstStat, SecondStat)) {
   RecommendClass(CharStats)
 }
  }
+
+GenerateBaseStatList <<-function() {
+ StatList <<- unlist(read.csv(file = "data\\BaseStats.csv", header = FALSE))
+ }

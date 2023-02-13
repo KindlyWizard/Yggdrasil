@@ -4,6 +4,8 @@ StatList <<- list("Strength"
 , "Intelligence"
 , "Wisdom"
 , "Charisma")
+
+StatList2 <<- 
 ValidDieSize <- list(4L, 6L, 8L, 10L, 12L, 20L, 100L)
 SpeciesList <<- list("Human"
 , "Dwarf"
@@ -73,3 +75,5 @@ UnassignedFeatPoints <<- 0L
 StartingWealthList <<- list(3, 3, 4, 2, 5, 1, 5, 5, 4, 2, 2)
 names(StartingWealthList) <- ClassList
 CharMoney <<- 0L
+CharStatHook <<- NULL
+CharDescription <<- NULL

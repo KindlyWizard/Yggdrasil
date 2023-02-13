@@ -37,7 +37,8 @@ CharGen <- function(Genre = "Fantasy", Game = "DandD", Method = "4d6droplow") {
   AddFeatPoints()
   AssignVitalStats(CharSpecies, CharClass)
   GenerateWealth(CharClass)
-  GenerateDescription()
+  FindDescriptionHooks(CharSpecies, CharClass, CharStats, ComputedStatValue)
+  #GenerateDescription()
   DisplayChar()
   Attack(Swings = 100)
   #DisplayAttackLog()
@@ -110,8 +111,10 @@ InitializeData <- function() {
   InputFantasyNickNamesFromCSV()
   InputMainTitlesFromCSV()
   InputEndTitlesFromCSV()
-  InputSkillListFromCSV()
+  #InputSkillListFromCSV()
+  InputSkillMatrixFromCSV()
   InputFeatListFromCSV()
+  InputCharStatHooksFromCSV()
 }
 
 OutputData <- function() {

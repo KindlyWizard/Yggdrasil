@@ -25,8 +25,8 @@ RemoveSkillPoints <<- function(SelectedSkill) {
 }
 
 AssignCharSkills <<-function() {
-    for (x in seq_along(SkillList)) {CharSkills[x] <<- 0L}
-    names(CharSkills) <<- SkillList
+    for (x in seq_along(SkillMatrix["Skill"])) {CharSkills[x] <<- 0L}
+    names(CharSkills) <<- SkillMatrix["Skill"]
 }
 
 OutputSkillListToCSV <- function() {
@@ -59,5 +59,9 @@ GenerateSkillListFromMatrix <-function() {
 }
 
 AssignSkillPoint <-function() {
-    
+
+}
+
+InputSkillMatrixFromCSV <- function() {
+      SkillMatrix <<- read.csv(file = "data\\SkillMatrix.csv")
 }
