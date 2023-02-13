@@ -11,7 +11,7 @@ The end goals, in order, are:
 4) As a demonstration for employers
 5) Potentially monetize it eventually (if this ever comes to pass, it's got to be in a friendly, scalable fashion)
 
-PROJECT TO-DOs: See if I can find a Product Owner for backlog clarification/prioritization. Talk to Andy and Matt if possible. Replace copyrighted material: Name lists, etc. Investigate license risks from SRD. Decide on a license (with legal help!) if business model(s) turn out to be potentially viable. Web output. Investigate cloud hosting (Azure/AWS?).
+PROJECT TO-DOs: See if I can find a Product Owner for backlog clarification/prioritization. Gather advice about everything. Replace copyrighted material: Name lists, etc. Investigate license risks from SRD. Decide on a license (with legal help!) if business model(s) turn out to be potentially viable. Web output. Investigate cloud hosting (Azure/AWS?).
 
 Kanban-style project board: https://trello.com/b/wlsVY7HE/chargen
 
