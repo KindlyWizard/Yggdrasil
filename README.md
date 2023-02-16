@@ -2,7 +2,7 @@
 A genericized character creation tool written in R as a learning project.
 Some things may be commented out temporarily as I work on them.
 
-Base.r has the core functionality and loads the rest of the modules. Run it and invoke CharGen() to get a character.
+Base.r has the core functionality and loads the rest of the modules. Run it, invoke InitializeData(), and invoke CharGen() to get a character.
 
 The end goals, in order, are:
 1) Gain some new skills (So far, R, VSCode, GitHub, OOP in general, eventually I want it to have a web-front end with configurable character sheet output)
