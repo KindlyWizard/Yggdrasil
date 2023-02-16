@@ -80,18 +80,7 @@ RecommendClass <- function() {
     }
 
 AddClassHitDie <<- function(CharClass) {
-if (CharClass == "Barbarian") {
-  return(12)
-  } else
- if (CharClass %in% (list("Fighter", "Paladin", "Ranger"))) {
-   return(10)
-} else
- if (CharClass %in% (list("Druid", "Cleric", "Bard", "Monk", "Rogue"))) {
-  return(8)
-  } else
-   if (CharClass %in% (list("Sorceror", "Wizard"))) {
-  return(6)
-  }
+   return(ClassMatrix[CharClass, "HitDie"])
 }
 
 RemoveClassHitDie <<- function(CharClass) {

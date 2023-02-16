@@ -1,5 +1,5 @@
 GenerateWealth <- function(CharClass) {
-    CharMoney <<- RollDice(6, StartingWealthList[[CharClass]]) * 100000
+    CharMoney <<- RollDice(6, ClassMatrix[CharClass, "StartingWealth"]) * 100000
 }
 
 GenerateMoneyString <- function(CharMoney, CharMainTitle, FirstName) {

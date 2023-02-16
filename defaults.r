@@ -1,19 +1,12 @@
-StatList <<- list("Strength"
-, "Dexterity"
-, "Constitution"
-, "Intelligence"
-, "Wisdom"
-, "Charisma")
-
 StatList2 <<- 
 ValidDieSize <- list(4L, 6L, 8L, 10L, 12L, 20L, 100L)
-SpeciesList <<- list("Human"
-, "Dwarf"
-, "Elf"
-, "Human"
-, "Gnome"
-, "Half-Orc"
-, "Half-Elf")
+#SpeciesList <<- list("Human"
+#, "Dwarf"
+#, "Elf"
+#, "Human"
+#, "Gnome"
+#, "Half-Orc"
+#, "Half-Elf")
 ComputedStatList <- list("StrengthBonus"
 , "DexterityBonus"
 , "ConstitutionBonus"
@@ -31,17 +24,7 @@ BaseComputedStatList <- list("StrengthBonus"
 , "IntelligenceBonus"
 , "WisdomBonus"
 , "CharismaBonus")
-ClassList <- list("Barbarian"
-, "Bard"
-, "Cleric"
-, "Druid"
-, "Fighter"
-, "Monk"
-, "Paladin"
-, "Ranger"
-, "Rogue"
-, "Sorceror"
-, "Wizard")
+BaseSkillPoints <<- list("")
 CharStats <- list(0L, 0L, 0L, 0L, 0L, 0L)
 ColorList <- list("", "", "", "", "", "")
 TargetDummyAC <- 10L
@@ -67,12 +50,10 @@ NameComponents <<- c("FantasyMainTitles" = FantasyMainTitles
 , "FantasyNickNames" = FantasyNickNames
 , "LastNames" = LastNames
 , "FantasyEndTitles" = FantasyEndTitles)
-BaseSkillPoints <- list(4, 6, 2, 4, 2, 4, 2, 6, 8, 2, 2)
 names(BaseSkillPoints) <- ClassList
 CharSkills <<- list(0L)
 CharFeats <<- list(0L)
 UnassignedFeatPoints <<- 0L
-StartingWealthList <<- list(3, 3, 4, 2, 5, 1, 5, 5, 4, 2, 2)
 names(StartingWealthList) <- ClassList
 CharMoney <<- 0L
 CharStatHook <<- NULL

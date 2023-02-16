@@ -35,6 +35,7 @@ CharMoney <<- 0L
 CharStatHook <<- NULL
 CharDescription <<- NULL
 ClassList <<- list("")
+ClassMatrix <<- matrix()
 }
 
 source("loaddata.r")
@@ -55,7 +56,7 @@ source("vitalstats.r")
 source("money.r")
 source("description.r")
 source("AIDescription.r")
-
+InitializeData()
 
 
 ClassHitDice <<- list(c(12L, 8L, 8L, 8L, 10L, 8L, 10L, 10L, 8L, 6L, 6L))
@@ -108,12 +109,11 @@ FindMinStat <- function() {
 min(unlist(CharStats))
 }
 
-LoadSkillsFromCSV <- function() {
+# LoadSkillsFromCSV <- function() {
+#}
 
-}
-
-GenerateSkills <- function(CharStats) {
-}
+#GenerateSkills <- function(CharStats) {
+#}
 
 LoadChar <- function(CharFile) {
   load(CharFile)
@@ -147,8 +147,6 @@ ReturnStatValue <- function(StatIndex) {
 SaveChar <- function() {
   save(CharacterData, file = paste(CharFullName, ".rds", sep = ""))
 }
-
-
 
 OutputData <- function() {
 OutputFirstNamesToCSV()

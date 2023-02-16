@@ -3,6 +3,7 @@ LoadAllCSVs <-function() {
     InputSpeciesListFromCSV()
     InputClassListFromCSV()
     InputBaseComputedStatListFromCSV()
+    InputComputedStatListFromCSV()
     InputSkillListFromCSV()
     InputSkillMatrixFromCSV()
     InputFeatListFromCSV()
@@ -16,6 +17,7 @@ LoadAllCSVs <-function() {
     InputDescriptionMatrixFromCSV()
     InputCharacterDataFromCSV()
     InputBaseStatsMatrixFromCSV()
+    InputClassMatrixFromCSV()
     }
 
 InputSpecifiedCSV <- function(modulecsv, headers) { #does not work yet, do not use
@@ -35,7 +37,7 @@ InputBaseStatsMatrixFromCSV <- function() {
 }
 
 InputFantasyLastNamesFromCSV <- function() {
-  FantasyLastNames <<- unlist(read.csv(file = "data\\FantasyLastNames.csv", header = FALSE))
+  FantasyLastNames <<- unlist(read.csv(file = "data\\FantasyLastNames.csv"))
 }
 
 InputFantasyNickNamesFromCSV <- function() {
@@ -51,7 +53,7 @@ InputLastNamesFromCSV <- function() {
 }
 
 InputFantasyFirstNamesFromCSV <- function() {
-  FantasyFirstNames <<- unlist(read.csv(file = "data\\FantasyFirstNames.csv", header = FALSE))
+  FantasyFirstNames <<- unlist(read.csv(file = "data\\FantasyFirstNames.csv"))
 }
 
 InputMainTitlesFromCSV <- function() {
@@ -63,23 +65,27 @@ InputEndTitlesFromCSV <- function() {
 }
 
 InputBaseStatsFromCSV <- function() {
-    BaseStats <<- unlist(read.csv(file = "data\\BaseStats.csv", header = FALSE))
+    StatList <<- unlist(read.csv(file = "data\\BaseStats.csv", header = TRUE))
 }
 
 InputSpeciesListFromCSV <- function() {
-    SpeciesList <<- unlist(read.csv(file = "data\\SpeciesList.csv", header = FALSE))
+    SpeciesList <<- unlist(read.csv(file = "data\\SpeciesList.csv"))
 }
 
 InputClassListFromCSV <- function() {
     ClassList <<- unlist(read.csv(file = "data\\ClassList.csv", header = FALSE))
 }
 
+InputClassMatrixFromCSV <- function() {
+  ClassMatrix <<- read.csv(file = "data\\ClassMatrix.csv", row.names = 1)
+}
+
 InputComputedStatListFromCSV <- function() {
-    ComputedStatList <<- unlist(read.csv(file = "data\\ComputedStatList.csv", header = FALSE))
+    ComputedStatList <<- unlist(read.csv(file = "data\\ComputedStatList.csv"))
 }
 
 InputBaseComputedStatListFromCSV <- function() {
-    BaseComputedStatList <<- unlist(read.csv(file = "data\\BaseComputedStatList.csv", header = FALSE))
+    BaseComputedStatList <<- unlist(read.csv(file = "data\\BaseComputedStatList.csv"))
 }
 
 InputSkillListFromCSV <- function() {

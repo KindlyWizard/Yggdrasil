@@ -37,7 +37,7 @@ AddFeatPoints <<-function() {
 DisplayFeats <-function() {
     for (x in seq_along(CharFeats)) {
         if (CharFeats[x] > 0) {
-            print(CharFeats[x])
+            print(unlist((CharFeats[x])))
         }
     }
     print(paste("Unused Feats:", UnassignedFeatPoints))

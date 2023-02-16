@@ -1,5 +1,5 @@
 AddSkillPoints <<- function(CharClass) {
- UnusedSkillPoints <<- ComputedStatValue$IntelligenceBonus + BaseSkillPoints[[CharClass]]
+ UnusedSkillPoints <<- ComputedStatValue$IntelligenceBonus + ClassMatrix[CharClass, "BaseSkillPoints"]
  if (CharSpecies == "Human") {
  UnusedSkillPoints <<- UnusedSkillPoints + 1
  }
@@ -39,11 +39,7 @@ OutputSkillListToCSV <- function() {
 }
 
 DisplaySkills <-function() {
-    for (x in seq_along(CharSkills)) {
-        if (CharSkills[x] > 0) {
-            print(CharSkills[x])
-        }
-    }
+        #print(CharSkills)
     print(paste("Unused Skill Points:", UnusedSkillPoints))
 }
 

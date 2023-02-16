@@ -1,0 +1,12 @@
+﻿Class,HitDie,BaseSkillPoints,StartingWealth
+Barbarian,12,4,3
+Bard,8,6,3
+Cleric,8,2,4
+Druid,8,4,2
+Fighter,10,2,5
+Monk,8,4,1
+Paladin,10,2,5
+Ranger,10,6,5
+Rogue,8,8,4
+Sorceror,6,2,2
+Wizard,6,2,2
