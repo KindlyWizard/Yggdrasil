@@ -16,3 +16,5 @@ PROJECT TO-DOs: See if I can find a Product Owner for backlog clarification/prio
 Kanban-style project board: https://trello.com/b/wlsVY7HE/chargen
 
 Development blog: https://www.linkedin.com/in/geoffrey-gill-29026761/recent-activity/
+
+Informal Project Charter: https://docs.google.com/document/d/1rGY5kVPeHPt9wkKjQzwE-fFt79nsW_jM8kZrISINK10/edit?usp=sharing
