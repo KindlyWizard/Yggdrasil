@@ -46,6 +46,6 @@ if (ValidateStatSwap(FirstStat, SecondStat)) {
 }
  }
 
-GenerateBaseStatList <<-function() {
+GenerateBaseStatList <<- function() {
  StatList <<- unlist(read.csv(file = "data\\BaseStats.csv", header = FALSE))
  }

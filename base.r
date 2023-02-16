@@ -1,3 +1,45 @@
+InitializeData <- function() {
+ValidDieSize <- list(4L, 6L, 8L, 10L, 12L, 20L, 100L)
+CharStats <- list(0L, 0L, 0L, 0L, 0L, 0L)
+ColorList <- list("", "", "", "", "", "")
+TargetDummyAC <- 10L
+TempDice <- 0L
+TotalRolled <- 0L
+CharClass <- "Monk"
+AttackLog <- list(0, 0)
+ComputedStatValue <<- list(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+HitPoints <- 0L
+CharacterLevel <- 1L
+UnusedSkillPoints <- 0L
+CharSpecies <- "Human"
+CharFullName <- "Jane Doe"
+FirstNames <<- NULL
+FantasyFirstNames <<- NULL
+LastNames <<- NULL
+FantasyEndTitles <<- NULL
+FantasyNickNames <<- NULL
+FantasyMainTitles <<- NULL
+NameComponents <<- c("FantasyMainTitles" = FantasyMainTitles
+, "FirstNames" = FirstNames
+, "FantasyNickNames" = FantasyNickNames
+, "LastNames" = LastNames
+, "FantasyEndTitles" = FantasyEndTitles)
+BaseSkillPoints <- list(4, 6, 2, 4, 2, 4, 2, 6, 8, 2, 2)
+names(BaseSkillPoints) <- ClassList
+CharSkills <<- list(0L)
+CharFeats <<- list(0L)
+UnassignedFeatPoints <<- 0L
+StartingWealthList <<- list(3, 3, 4, 2, 5, 1, 5, 5, 4, 2, 2)
+names(StartingWealthList) <- ClassList
+CharMoney <<- 0L
+CharStatHook <<- NULL
+CharDescription <<- NULL
+ClassList <<- list("")
+}
+
+source("loaddata.r")
+LoadAllCSVs()
+InitializeData()
 source("names.r")
 source("classes.r")
 source("species.r")
@@ -12,7 +54,8 @@ source("feats.r")
 source("vitalstats.r")
 source("money.r")
 source("description.r")
-InitializeData()
+source("AIDescription.r")
+
 
 
 ClassHitDice <<- list(c(12L, 8L, 8L, 8L, 10L, 8L, 10L, 10L, 8L, 6L, 6L))
@@ -38,7 +81,7 @@ CharGen <- function(Genre = "Fantasy", Game = "DandD", Method = "4d6droplow") {
   AssignVitalStats(CharSpecies, CharClass)
   GenerateWealth(CharClass)
   FindDescriptionHooks(CharSpecies, CharClass, CharStats, ComputedStatValue)
-  #GenerateDescription()
+  #GenerateAIDescription(CharSpecies, CharClass, CharFullName)
   DisplayChar()
   Attack(Swings = 100)
   #DisplayAttackLog()
@@ -105,17 +148,7 @@ SaveChar <- function() {
   save(CharacterData, file = paste(CharFullName, ".rds", sep = ""))
 }
 
-InitializeData <- function() {
-  InputFirstNamesFromCSV()
-  InputLastNamesFromCSV()
-  InputFantasyNickNamesFromCSV()
-  InputMainTitlesFromCSV()
-  InputEndTitlesFromCSV()
-  #InputSkillListFromCSV()
-  InputSkillMatrixFromCSV()
-  InputFeatListFromCSV()
-  InputCharStatHooksFromCSV()
-}
+
 
 OutputData <- function() {
 OutputFirstNamesToCSV()

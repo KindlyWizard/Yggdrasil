@@ -1,8 +1,3 @@
-InputFeatListFromCSV <- function() {
-  FeatList <<- length(1024)
-  FeatList <<- unlist(read.csv(file = "data\\FeatList.csv", header = FALSE))
-}
-
 OutputFeatListToCSV <- function() {
   write.table(unlist(FeatList)
   , file = "data\\FeatList.csv"

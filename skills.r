@@ -3,7 +3,7 @@ AddSkillPoints <<- function(CharClass) {
  if (CharSpecies == "Human") {
  UnusedSkillPoints <<- UnusedSkillPoints + 1
  }
- AssignCharSkills()
+ #AssignCharSkills()
 }
 
 AddSkillPoint <<- function(SelectedSkill) {
@@ -25,8 +25,10 @@ RemoveSkillPoints <<- function(SelectedSkill) {
 }
 
 AssignCharSkills <<-function() {
-    for (x in seq_along(SkillMatrix["Skill"])) {CharSkills[x] <<- 0L}
-    names(CharSkills) <<- SkillMatrix["Skill"]
+    for (x in seq_along(SkillMatrix["Skill"])) {
+        #list(CharSkills) <<- c(CharSkills, SkillMatrix[x])
+        }
+    names(CharSkills) <<- SkillList
 }
 
 OutputSkillListToCSV <- function() {
@@ -34,11 +36,6 @@ OutputSkillListToCSV <- function() {
   , file = "data\\SkillList.csv"
   , row.names = FALSE
   , col.names = FALSE)
-}
-
-InputSkillListFromCSV <- function() {
-  SkillList <<- length(1024)
-  SkillList <<- unlist(read.csv(file = "data\\SkillList.csv", header = FALSE))
 }
 
 DisplaySkills <-function() {
@@ -50,8 +47,8 @@ DisplaySkills <-function() {
     print(paste("Unused Skill Points:", UnusedSkillPoints))
 }
 
-RecommendSkills <- function() {
-
+RecommendSkills <- function(CharSkills, CharClassSkills) {
+#sample(CharClassSkills, UnusedSkillPoints)
 }
 
 GenerateSkillListFromMatrix <-function() {
@@ -60,8 +57,4 @@ GenerateSkillListFromMatrix <-function() {
 
 AssignSkillPoint <-function() {
 
-}
-
-InputSkillMatrixFromCSV <- function() {
-      SkillMatrix <<- read.csv(file = "data\\SkillMatrix.csv")
 }

@@ -8,6 +8,13 @@ AssignClass <- function(CharClass) {
   }
 }
 
+AddClassSkills <- function(CharClass) {
+   for (x in seq_along(SkillList)) {
+      if (unlist(SkillMatrix[CharClass])[x] == 1)
+         CharClassSkills <<- c(CharSkills, SkillList[x])
+   }
+}
+
 RemoveClass <- function(CharClass) {
   if (CharClass %in% ClassList) {
     CharacterLevel <<- 0L

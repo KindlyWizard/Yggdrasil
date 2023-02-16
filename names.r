@@ -1,3 +1,15 @@
+NameComponents <<- c("FantasyMainTitles" = FantasyMainTitles
+, "FirstNames" = FirstNames
+, "FantasyNickNames" = FantasyNickNames
+, "LastNames" = LastNames
+, "FantasyEndTitles" = FantasyEndTitles)
+FirstNames <- NULL
+LastNames <- NULL
+FantasyEndTitles <- NULL
+FantasyNickNames <- NULL
+FantasyMainTitles <- NULL
+
+
 InitializeData <- function() {
   InputFirstNamesFromCSV()
   InputLastNamesFromCSV()
@@ -28,7 +40,6 @@ OutputData2 <- function() {
   , col.names = FALSE)
 }
 
-
 GenerateName <- function(Genre = "Fantasy") {
 CharFullName <<- if (Genre == "Fantasy") {
   gsub("  ", " ", trimws(paste(PickMainTitle("Fantasy")
@@ -47,21 +58,11 @@ OutputMainTitlesToCSV <- function() {
   , col.names = FALSE)
 }
 
-InputMainTitlesFromCSV <- function() {
-  FantasyMainTitles <<- length(1024)
-  FantasyMainTitles <<- unlist(read.csv(file = "data\\FantasyMainTitles.csv", header = FALSE))
-}
-
 OutputEndTitlesToCSV <- function() {
   write.table(unlist(FantasyEndTitles)
   , file = "data\\FantasyEndTitles.csv"
   , row.names = FALSE
   , col.names = FALSE)
-}
-
-InputEndTitlesFromCSV <- function() {
-  FantasyEndTitles <<- length(1024)
-  FantasyEndTitles <<- unlist(read.csv(file = "data\\FantasyEndTitles.csv", header = FALSE))
 }
 
 OutputFantasyNickNamesToCSV <- function() {
@@ -71,26 +72,11 @@ OutputFantasyNickNamesToCSV <- function() {
   , col.names = FALSE)
 }
 
-InputFantasyFirstNamesFromCSV <- function() {
-  FantasyFirstNames <<- length(1024)
-  FantasyFirstNames <<- unlist(read.csv(file = "data\\FantasyFirstNames.csv", header = FALSE))
-}
-
 OutputFantasyLastNamesToCSV <- function() {
   write.table(unlist(FantasyLastNames)
   , file = "data\\FantasyLastNames.csv"
   , row.names = FALSE
   , col.names = FALSE)
-}
-
-InputFantasyLastNamesFromCSV <- function() {
-  FantasyLastNames <<- length(1024)
-  FantasyLastNames <<- unlist(read.csv(file = "data\\FantasyLastNames.csv", header = FALSE))
-}
-
-InputFantasyNickNamesFromCSV <- function() {
-  FantasyNickNames <<- length(1024)
-  FantasyNickNames <<- unlist(read.csv(file = "data\\FantasyNickNames.csv", header = FALSE))
 }
 
 OutputFirstNamesToCSV <- function() {
@@ -100,21 +86,11 @@ OutputFirstNamesToCSV <- function() {
   , col.names = FALSE)
 }
 
-InputFirstNamesFromCSV <- function() {
-  FirstNames <<- length(1024)
-  FirstNames <<- unlist(read.csv(file = "data\\FirstNames.csv", header = FALSE))
-}
-
 OutputLastNamesToCSV <- function() {
   write.table(unlist(LastNames)
   , file = "data\\LastNames.csv"
   , row.names = FALSE
   , col.names = FALSE)
-}
-
-InputLastNamesFromCSV <- function() {
-  LastNames <<- unlist(read.csv(file = "data\\LastNames.csv", header = FALSE))
-  length(LastNames) <- 1024
 }
 
 PickFantasyFirstName <- function() {
@@ -186,13 +162,3 @@ PickNickName <- function(Genre = "Fantasy") {
   }
 }
 
-NameComponents <<- c("FantasyMainTitles" = FantasyMainTitles
-, "FirstNames" = FirstNames
-, "FantasyNickNames" = FantasyNickNames
-, "LastNames" = LastNames
-, "FantasyEndTitles" = FantasyEndTitles)
-FirstNames <- NULL
-LastNames <- NULL
-FantasyEndTitles <- NULL
-FantasyNickNames <- NULL
-FantasyMainTitles <- NULL
