@@ -5,6 +5,9 @@ CharSpecies
 CharClass
 CharacterLevel
 UnusedSkillPoints
+CharSkills
+UnassignedFeatPoints
+CharFeats
 HitPoints
 Age
 Weight
