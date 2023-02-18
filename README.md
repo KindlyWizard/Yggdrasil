@@ -1,4 +1,5 @@
 # Yggdrasil
+DISCONTINUED PROJECT
 A genericized character creation tool written in R as a learning project.
 Some things may be commented out temporarily as I work on them.
 
