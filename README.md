@@ -1,5 +1,5 @@
 # Yggdrasil
-DISCONTINUED PROJECT
+DISCONTINUED PROJECT - to be replaced by Project Jormungandr (https://github.com/KindlyWizard/Jormungandr)
 A genericized character creation tool written in R as a learning project.
 Some things may be commented out temporarily as I work on them.
 
